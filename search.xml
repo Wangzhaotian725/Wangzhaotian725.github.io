@@ -3,8 +3,12 @@
   <entry>
     <title>Hello World</title>
     <url>/2020/03/26/hello-world/</url>
-    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
+    <content><![CDATA[<p>这是我的第一篇博客，不知道经历了多长时间也不知道走了多少弯路才把它搭建起来。我会简单记录下搭建博客的想法和实施步骤。</p>
+<h2 id="一些想法"><a href="#一些想法" class="headerlink" title="一些想法"></a>一些想法</h2><h3 id="记录思维碎片"><a href="#记录思维碎片" class="headerlink" title="记录思维碎片"></a>记录思维碎片</h3><p>我有一些很不好的做事习惯：一边研究python一边画单片机原理图，一边预习数字信号处理一边复习复变函数，一边做电源一边记英语……时常网页和桌面新建了许多，还没有彻底消化就搁置在一旁，事实上也导致手上古老的笔记本连续开机一个多星期。我确实不想关电脑，因为现在找到自己想要的内容难度实在太大，但是又考虑到亲爱的电脑，不得不经常做一些取舍，于是乎干脆建立一个博客，学习了新知识之余还能随手把浏览到的东西保存下来，岂不美哉？</p>
+<a id="more"></a>
+
+<h3 id="开源"><a href="#开源" class="headerlink" title="开源"></a>开源</h3><p>出乎意料地，开源很契合我成为教师的志向。开源提供了无限种可能。与之相反，我越来越感到现今获取知识的困难。仅仅找到有效的资料就十分费工夫，更不要说找到适合自己的资料了。即使是开源，囿于五花八门的环境和配置文件，一些很简单的操作却会给普通人造成比较大的困扰。<br>希望我的博客能借助GitHub的开源平台，把许多看上去十分复杂的操作简单化让人人无障碍获取知识成为可能。</p>
+<h2 id="建立博客中遇到的主要问题"><a href="#建立博客中遇到的主要问题" class="headerlink" title="建立博客中遇到的主要问题"></a>建立博客中遇到的主要问题</h2><h3 id="使用Windows-PowerShell和Git-Bash"><a href="#使用Windows-PowerShell和Git-Bash" class="headerlink" title="使用Windows PowerShell和Git Bash"></a>使用Windows PowerShell和Git Bash</h3><h3 id="在Github上建立SSH通信协议"><a href="#在Github上建立SSH通信协议" class="headerlink" title="在Github上建立SSH通信协议"></a>在Github上建立SSH通信协议</h3><h3 id="配置文件（-yml）的打开与修改"><a href="#配置文件（-yml）的打开与修改" class="headerlink" title="配置文件（.yml）的打开与修改"></a>配置文件（.yml）的打开与修改</h3><h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
 
 <p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
 <h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
@@ -17,5 +21,12 @@
 
 <p>More info: <a href="https://hexo.io/docs/one-command-deployment.html" target="_blank" rel="noopener">Deployment</a></p>
 ]]></content>
+      <categories>
+        <category>计算机网络</category>
+      </categories>
+      <tags>
+        <tag>思维碎片</tag>
+        <tag>指令</tag>
+      </tags>
   </entry>
 </search>
