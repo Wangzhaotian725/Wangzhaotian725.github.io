@@ -1,6 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>Hosts文件</title>
+    <url>/2020/04/09/Hosts%E6%96%87%E4%BB%B6/</url>
+    <content><![CDATA[<p>越来越长时间地游走在国外的网页中，曾经使用过VPN的我现在竟然觉得缺少梯子在互联网的世界寸步难行（原来的梯子在2019年国庆由于众所周知的原因失效了……）。然而家境贫穷迫于无奈退而求其次采用了修改hosts文件的方式，在一定程度上提升访问国外服务器的速度。</p>
+<h2 id="Hosts文件的工作方式"><a href="#Hosts文件的工作方式" class="headerlink" title="Hosts文件的工作方式"></a>Hosts文件的工作方式</h2><p>在过去引入DNS域名系统之前，计算机从Hosts文件中的IP地址和域名的映射关系通过FTP协议接入互联网。</p>
+<p>在现在计算机在提高DNS请求之前依然会检查Hosts文件中的IP地址和域名之间的映射关系。如果有，则直接访问该网络位置；若没有，则向已知的DNS提交域名解析请求。</p>
+<a id="more"></a>
+
+<h2 id="电脑中的Hosts文件的使用方法"><a href="#电脑中的Hosts文件的使用方法" class="headerlink" title="电脑中的Hosts文件的使用方法"></a>电脑中的Hosts文件的使用方法</h2><p>Windows系统若系统盘为C盘，则电脑中的Hosts文件储存位置为：</p>
+<blockquote>
+<p>C:\Windows\System32\drivers\etc</p>
+</blockquote>
+<p>Host文件没有后缀名，可以用记事本打开，这里推荐使用notepad++。</p>
+<p>其中默认的开头为：</p>
+<blockquote>
+<p># Copyright (c) 1993-2009 Microsoft Corp.<br>#<br># This is a sample HOSTS file used by Microsoft TCP/IP for Windows.<br>#<br># This file contains the mappings of IP addresses to host names. Each<br># entry should be kept on an individual line. The IP address should<br># be placed in the first column followed by the corresponding host name.<br># The IP address and the host name should be separated by at least one<br># space.<br>#<br># Additionally, comments (such as these) may be inserted on individual<br># lines or following the machine name denoted by a ‘#’ symbol.<br>#<br># For example:<br>#<br>#      102.54.94.97     rhino.acme.com          # source server<br>#       38.25.63.10     x.acme.com                   # x client host<br># localhost name resolution is handled within DNS itself.</p>
+</blockquote>
+<p>如果怀疑Hosts文件被病毒恶意篡改，可以清空文件内容将以上粘贴到文件中。不过#号后内容皆为注释，没有实际意义。</p>
+<p>添加IP地址与域名的方式如下：</p>
+<blockquote>
+<p>   192.30.253.112 github.com<br>   192.30.253.119 gist.github.com</p>
+</blockquote>
+<p>注意IP地址与域名映射关系是否准确，可以时不时ping一下网页更新IP地址。</p>
+<p>同时Hosts文件也可以用来屏蔽域名，例如：</p>
+<blockquote>
+<p>#    127.0.0.1       baidu.com</p>
+</blockquote>
+<p>其中127.0.0.1为本地地址</p>
+<p>在GitHub上了解更多内容：<a href="https://github.com/lennylxx/ipv6-hosts" target="_blank" rel="noopener">https://github.com/lennylxx/ipv6-hosts</a></p>
+]]></content>
+      <categories>
+        <category>计算机网络</category>
+      </categories>
+      <tags>
+        <tag>思维碎片</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Hello World</title>
     <url>/2020/03/26/hello-world/</url>
     <content><![CDATA[<p>这是我的第一篇博客，不知道经历了多长时间也不知道走了多少弯路才把它搭建起来。我会简单记录下搭建博客的想法和实施步骤。</p>
@@ -8,7 +45,7 @@
 <a id="more"></a>
 
 <h3 id="开源"><a href="#开源" class="headerlink" title="开源"></a>开源</h3><p>出乎意料地，开源很契合我成为教师的志向。开源提供了无限种可能。与之相反，我越来越感到现今获取知识的困难。仅仅找到有效的资料就十分费工夫，更不要说找到适合自己的资料了。即使是开源，囿于五花八门的环境和配置文件，一些很简单的操作却会给普通人造成比较大的困扰。<br>希望我的博客能借助GitHub的开源平台，把许多看上去十分复杂的操作简单化让人人无障碍获取知识成为可能。</p>
-<h2 id="建立博客中遇到的主要问题"><a href="#建立博客中遇到的主要问题" class="headerlink" title="建立博客中遇到的主要问题"></a>建立博客中遇到的主要问题</h2><h3 id="使用Windows-PowerShell和Git-Bash"><a href="#使用Windows-PowerShell和Git-Bash" class="headerlink" title="使用Windows PowerShell和Git Bash"></a>使用Windows PowerShell和Git Bash</h3><h3 id="在Github上建立SSH通信协议"><a href="#在Github上建立SSH通信协议" class="headerlink" title="在Github上建立SSH通信协议"></a>在Github上建立SSH通信协议</h3><h3 id="配置文件（-yml）的打开与修改"><a href="#配置文件（-yml）的打开与修改" class="headerlink" title="配置文件（.yml）的打开与修改"></a>配置文件（.yml）的打开与修改</h3><h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
+<h2 id="建立博客中遇到的主要问题"><a href="#建立博客中遇到的主要问题" class="headerlink" title="建立博客中遇到的主要问题"></a>建立博客中遇到的主要问题</h2><h3 id="使用Windows-PowerShell和Git-Bash"><a href="#使用Windows-PowerShell和Git-Bash" class="headerlink" title="使用Windows PowerShell和Git Bash"></a>使用Windows PowerShell和Git Bash</h3><h3 id="在Github上建立SSH通信协议"><a href="#在Github上建立SSH通信协议" class="headerlink" title="在Github上建立SSH通信协议"></a>在Github上建立SSH通信协议</h3><h3 id="配置文件（-yml）的打开与修改"><a href="#配置文件（-yml）的打开与修改" class="headerlink" title="配置文件（.yml）的打开与修改"></a>配置文件（.yml）的打开与修改</h3><h2 id="快速开始"><a href="#快速开始" class="headerlink" title="快速开始"></a>快速开始</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
 
 <p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
 <h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
