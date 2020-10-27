@@ -1,6 +1,893 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>右脑笔记：BP神经网络</title>
+    <url>/2020/08/02/%E5%8F%B3%E8%84%91%E7%AC%94%E8%AE%B0%EF%BC%9ABP%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/</url>
+    <content><![CDATA[<h4 id="人工神经元模型"><a href="#人工神经元模型" class="headerlink" title="人工神经元模型"></a>人工神经元模型</h4><h5 id="单个神经元"><a href="#单个神经元" class="headerlink" title="单个神经元"></a>单个神经元</h5><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">graph LR</span><br><span class="line">x1--权重w1--&gt;当前神经元</span><br><span class="line">当前神经元--&gt;阈值</span><br><span class="line">阈值--&gt;输出</span><br><span class="line">x2--w2--&gt;当前神经元</span><br><span class="line">x3--w3--&gt;当前神经元</span><br><span class="line">x4--w4--&gt;当前神经元</span><br></pre></td></tr></table></figure>
+
+<h5 id="神经网络"><a href="#神经网络" class="headerlink" title="神经网络"></a>神经网络</h5><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">graph LR</span><br><span class="line">输入层--&gt;隐含层</span><br><span class="line">隐含层--&gt;输出层</span><br></pre></td></tr></table></figure>
+
+<p>权重可以通过训练得到，但网络结构需要人为设置。</p>
+<h4 id="神经元之间的连接形式"><a href="#神经元之间的连接形式" class="headerlink" title="神经元之间的连接形式"></a>神经元之间的连接形式</h4><h5 id="前向网络"><a href="#前向网络" class="headerlink" title="前向网络"></a>前向网络</h5><p>有向无环图</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">graph TD</span><br><span class="line">输入节点1--&gt;隐层1</span><br><span class="line">输入节点1--&gt;隐层2</span><br><span class="line">隐层1--&gt;输出层1</span><br><span class="line">隐层2--&gt;输出层1</span><br><span class="line">隐层2--&gt;输出层2</span><br><span class="line">输入节点2--&gt;隐层1</span><br><span class="line">输入节点2--&gt;隐层3</span><br><span class="line">输入节点3--&gt;隐层3</span><br><span class="line">隐层3--&gt;输出层2</span><br><span class="line">输入节点4--&gt;隐层3</span><br></pre></td></tr></table></figure>
+
+<p>单个神经元的输出都相等。</p>
+<h5 id="反馈网络"><a href="#反馈网络" class="headerlink" title="反馈网络"></a>反馈网络</h5><p>反馈网络可以表示成无向图。</p>
+<h4 id="激活函数"><a href="#激活函数" class="headerlink" title="激活函数"></a>激活函数</h4><h5 id="阈值函数"><a href="#阈值函数" class="headerlink" title="阈值函数"></a>阈值函数</h5><p>阶跃函数。当激活函数采用阶跃函数时，人工神经网络模型为MP模型。输出结果只有0或1.</p>
+<h5 id="线性函数"><a href="#线性函数" class="headerlink" title="线性函数"></a>线性函数</h5><p>输出结果为任意值，网络收敛性差。</p>
+<h5 id="对数S形函数"><a href="#对数S形函数" class="headerlink" title="对数S形函数"></a><em>对数S形函数</em></h5><p>输出介于0~1之间。</p>
+<h5 id="双曲正切S形函数"><a href="#双曲正切S形函数" class="headerlink" title="双曲正切S形函数"></a>双曲正切S形函数</h5><p>输出介于-1~1之间。</p>
+<h4 id="神经网络的学习方式"><a href="#神经网络的学习方式" class="headerlink" title="神经网络的学习方式"></a>神经网络的学习方式</h4><p>神经网络的学习就是改变权值矩阵的过程。其网络能通过它的神经元权值和阈值的不断调整从环境中进行学习，直到输出误差达到预期结果。</p>
+<h5 id="神经网络的学习规则"><a href="#神经网络的学习规则" class="headerlink" title="神经网络的学习规则"></a>神经网络的学习规则</h5><h6 id="误差修正型规则"><a href="#误差修正型规则" class="headerlink" title="误差修正型规则"></a><em>误差修正型规则</em></h6><p>一种有监督的学习方法，根据实际输出和期望输出的误差进行网络连接权值的修正。</p>
+<h6 id="竞争型规则"><a href="#竞争型规则" class="headerlink" title="竞争型规则"></a>竞争型规则</h6><p>无监督学习过程 ，仅根据提供的学习样本进行自组织学习，没有期望输出。</p>
+<h6 id="Hebb型规则"><a href="#Hebb型规则" class="headerlink" title="Hebb型规则"></a>Hebb型规则</h6><p>利用神经元之间的活化值来反映它们之间连接性性的变化。</p>
+<h6 id="随机型学习规则"><a href="#随机型学习规则" class="headerlink" title="随机型学习规则"></a>随机型学习规则</h6><p>在学习过程中根据目标函数（网络输出均方差）的变化调整网络参数。</p>
+<h4 id="BP神经网络"><a href="#BP神经网络" class="headerlink" title="BP神经网络"></a>BP神经网络</h4><p>反向传播模型。</p>
+<p>基本思想：学习过程由信号的正向传播与误差的反向传播两个过程组成。</p>
+<p>误差的反向传播是将输出误差以某种形式通过隐层逐层反传，将误差分摊给各层的所有单元，从而获得各层单元的误差信号，作为修正各单元权值的依据。</p>
+<h5 id="BP算法的学习过程"><a href="#BP算法的学习过程" class="headerlink" title="BP算法的学习过程"></a>BP算法的学习过程</h5><ol>
+<li><p>选择一组训练样例</p>
+</li>
+<li><p>从训练样级</p>
+</li>
+<li></li>
+<li><p>计算网络的实际输出和期望输出的误差</p>
+</li>
+<li><p>从输出层反向计算到第一个隐层，按梯度下降法使误差向减小方向发展。</p>
+</li>
+<li></li>
+</ol>
+]]></content>
+      <categories>
+        <category>数学建模</category>
+      </categories>
+      <tags>
+        <tag>培训笔记人工</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>右脑笔记：微分方程</title>
+    <url>/2020/07/29/%E5%8F%B3%E8%84%91%E7%AC%94%E8%AE%B0%EF%BC%9A%E5%BE%AE%E5%88%86%E6%96%B9%E7%A8%8B/</url>
+    <content><![CDATA[<p>微分方程是含有函数及其导数的方程，是各种<em>变化率</em>之间的等式。</p>
+<p>解决的主要问题：</p>
+<p>​    预测对象特征的未来性态</p>
+<p>​    研究控制对象特征的手段</p>
+<p>​    分析对象特征的变化规律</p>
+<p>​    描述对象特征随时间（空间）的变化规律</p>
+<h4 id="常微分方程"><a href="#常微分方程" class="headerlink" title="常微分方程"></a>常微分方程</h4><h5 id="人口预测模型"><a href="#人口预测模型" class="headerlink" title="人口预测模型"></a>人口预测模型</h5><p>人口按几何级数增长</p>
+<p>基本假设：人口相对增长率r是常数</p>
+<p>设x(t)为t时刻的人口数，则x(t)满足下面常微分方程<br>$$<br>\frac{dx}{dt}=rx,x(0)=x_0<br>$$<br>解为<br>$$<br>x(t)=x_0e^{rt}<br>$$<br>意味着随时间增加，人口按指数速度无限增长。</p>
+<p>通过已知数据拟合求取参数r。</p>
+<h6 id="阻滞增长模型"><a href="#阻滞增长模型" class="headerlink" title="阻滞增长模型"></a>阻滞增长模型</h6><p>人口增长到一定数量后，资源、环境等对人口增长起阻滞作用，阻滞作用随人口数量增大而变大，增长率r是x的减函数</p>
+<p>假设：</p>
+<p>$$<br>r(x)=r(1-\frac{x}{x_{max}})<br>$$<br>阻滞增长模型：<br>$$<br>\frac{dx}{dt}=r(1-\frac{x}{x_{max}})x<br>$$<br>$x(0)=x_0$时：<br>$$<br>x(t)=\frac{x_{max}}{1+(\frac{x_{max}}{x_0})e^{rt}}<br>$$<br>利用统计数据用最小二乘法作拟合。</p>
+<h5 id="捕食-食饵模型"><a href="#捕食-食饵模型" class="headerlink" title="捕食/食饵模型"></a>捕食/食饵模型</h5><p>假设：食饵数量x(t)，捕食者数量y(t)</p>
+<p>​            甲独立生存增长率r</p>
+<p>​            乙使甲增长率减小，减小量与y成正比，比例系数α称为捕食者掠取食饵的能力</p>
+<p>​            乙独立生存的死亡率d</p>
+<p>​            甲使乙的死亡率减小，减小量与x成正比，b为食饵供养捕食者能力<br>$$<br>\frac{dx}{dt}=(r-ay)x<br>$$</p>
+<p>$$<br>\frac{dy}{dt}=-(d-bx)y<br>$$</p>
+<p><em>没有解析解</em></p>
+]]></content>
+      <categories>
+        <category>数学建模</category>
+      </categories>
+      <tags>
+        <tag>培训笔记</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>右脑笔记：排队论</title>
+    <url>/2020/07/27/%E5%8F%B3%E8%84%91%E7%AC%94%E8%AE%B0%EF%BC%9A%E6%8E%92%E9%98%9F%E8%AE%BA/</url>
+    <content><![CDATA[<h4 id="概率论及其生灭过程"><a href="#概率论及其生灭过程" class="headerlink" title="概率论及其生灭过程"></a>概率论及其生灭过程</h4><h5 id="随机变量与概率分布"><a href="#随机变量与概率分布" class="headerlink" title="随机变量与概率分布"></a>随机变量与概率分布</h5><h6 id="随机变量"><a href="#随机变量" class="headerlink" title="随机变量"></a>随机变量</h6><p>离散型随机变量</p>
+<p>​    概率分布和概率分布图</p>
+<p>​    数学期望和方差</p>
+<p>​    常见离散型分布</p>
+<p>连续型随机变量</p>
+<p>​    概率密度函数</p>
+<p>​    概率分布函数</p>
+<p>​    数学期望和方差</p>
+<p>​    常见连续型随机变量的概率分布</p>
+<p>​        均匀分布</p>
+<p>​        指数分布<br>$$<br>a(x)=\<br>E(x)=<br>$$</p>
+<p>​        k阶埃尔朗分布</p>
+<p>k个相互独立的随机变量服从相同参数kμ的负指数分布。</p>
+<h4 id="排队论"><a href="#排队论" class="headerlink" title="排队论"></a>排队论</h4><h4 id="单服务台"><a href="#单服务台" class="headerlink" title="单服务台"></a>单服务台</h4><p>反蓉                                                                                                                                                                                                                                                                                                                                                                        </p>
+]]></content>
+      <categories>
+        <category>数学建模</category>
+      </categories>
+      <tags>
+        <tag>培训笔记</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>右脑笔记：决策分析</title>
+    <url>/2020/07/25/%E5%8F%B3%E8%84%91%E7%AC%94%E8%AE%B0%EF%BC%9A%E5%86%B3%E7%AD%96%E5%88%86%E6%9E%90/</url>
+    <content><![CDATA[<h3 id="决策分析的基本问题"><a href="#决策分析的基本问题" class="headerlink" title="决策分析的基本问题"></a>决策分析的基本问题</h3><h4 id="决策问题的要素"><a href="#决策问题的要素" class="headerlink" title="决策问题的要素"></a>决策问题的要素</h4><ol>
+<li>决策者</li>
+<li>可供选择的方案</li>
+<li>准则：衡量选择方案，包括目的，属性的正确性标准</li>
+<li>事件：不为决策者控制的客观存在的将要发生的状态</li>
+<li>每一事件的发生将会产生某种结果</li>
+<li>决策者的价值观</li>
+</ol>
+<h4 id="按决策环境"><a href="#按决策环境" class="headerlink" title="按决策环境"></a>按决策环境</h4><h5 id="确定型决策"><a href="#确定型决策" class="headerlink" title="确定型决策"></a>确定型决策</h5><p>确定型决策是指自然环境完全确定，做出的选择也是确定的。未来状态已知，只需从备选决策方案中挑选出最优方案。</p>
+<p>能够引起决策问题的不确定性的因素，称为<em>自然状态</em>，由于自然状态的不确定性导致后果不确定。</p>
+<h5 id="不确定型决策"><a href="#不确定型决策" class="headerlink" title="不确定型决策"></a>不确定型决策</h5><p>不确定型决策是决策者对将要发生结果的概率无法确定或者一无所知，只能凭借主观意向进行的决策。</p>
+<p>决策者面临的决策环境由一些自然状态组成，决策者可以采取若干决策方案，每一种决策方案在不同自然状态下出现的结果是已知的，但决策者不能预先估计各种自然状态出现的概率。</p>
+<p>​    不确定决策的几种准则：</p>
+<p>​    悲观准则</p>
+<p>​    乐观准则</p>
+<p>​    后悔准则</p>
+<p>​    折中准则</p>
+<p>​    等可能性准则</p>
+<h5 id="风险型决策"><a href="#风险型决策" class="headerlink" title="风险型决策"></a>风险型决策</h5><p>自然环境不完全确定，但是其发生的概率是可以推算或者已知的。</p>
+<p>决策者采取某种行动方案后系统有若干种状态可能发生，决策者对系统的状态虽然没有控制力，但是却能确定每种状态发生的概率。</p>
+<h6 id="决策分析的基本步骤："><a href="#决策分析的基本步骤：" class="headerlink" title="决策分析的基本步骤："></a>决策分析的基本步骤：</h6><ol>
+<li>构造决策问题，为决策问题提供可能的<em>方案<em>，并标定</em>目标</em></li>
+<li>确定各种决策<em>可能的后果<em>并设定各种后果发生的</em>概率</em></li>
+<li>决定各种后果对决策人的<em>实际价值</em></li>
+<li>进行评价和比较</li>
+</ol>
+<h6 id="风险型决策的期望值法"><a href="#风险型决策的期望值法" class="headerlink" title="风险型决策的期望值法"></a>风险型决策的期望值法</h6><p>期望值法是根据各可行方案在各自然状态下收益值和概率平均值的大小，决定各方案的取舍。</p>
+<p>决策者具有以下假定：</p>
+<ol>
+<li>无差异性：一个确定收益和一个与之等值的期望收益之间无差异</li>
+<li>趋利性：期望收益值越大越好</li>
+</ol>
+<h4 id="决策树方法"><a href="#决策树方法" class="headerlink" title="决策树方法"></a>决策树方法</h4><h5 id="决策树方法的步骤"><a href="#决策树方法的步骤" class="headerlink" title="决策树方法的步骤"></a>决策树方法的步骤</h5><ol>
+<li>画决策树</li>
+<li>预测事件发生的概率</li>
+<li>计算损益值</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">graph LR</span><br><span class="line">决策点--方案分支--&gt;状态点1</span><br><span class="line">决策点--&gt;状态点2</span><br><span class="line">状态点1--概率分支--&gt;结果点1</span><br><span class="line">状态点1--&gt;结果点2</span><br><span class="line">状态点2--&gt;结果点3</span><br><span class="line">状态点2--&gt;结果点4</span><br></pre></td></tr></table></figure>
+
+<h5 id="信息价值（EVPI）"><a href="#信息价值（EVPI）" class="headerlink" title="信息价值（EVPI）"></a>信息价值（EVPI）</h5><p>完全信息：决策者能完全肯定未来那个自然状态会发生</p>
+<p>若能获得完全信息，风险型决策便转化为确定型决策，提高决策准确性。要获得信息必须支付一定的费用，决策者应首先估计这些信息的价值。</p>
+]]></content>
+      <categories>
+        <category>数学建模</category>
+      </categories>
+      <tags>
+        <tag>培训笔记</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>右脑笔记：论文写作</title>
+    <url>/2020/07/25/%E5%8F%B3%E8%84%91%E7%AC%94%E8%AE%B0%EF%BC%9A%E8%AE%BA%E6%96%87%E5%86%99%E4%BD%9C/</url>
+    <content><![CDATA[<h4 id="写答卷前的思考和工作规划"><a href="#写答卷前的思考和工作规划" class="headerlink" title="写答卷前的思考和工作规划"></a>写答卷前的思考和工作规划</h4><h5 id="统筹规划："><a href="#统筹规划：" class="headerlink" title="统筹规划："></a>统筹规划：</h5><p>​    建模需要解决哪几个问题</p>
+<p>​    结果以怎样的形式表示</p>
+<p>​    建模需要计算的关键数据</p>
+<p>​    每个量需要计算一组还是多组</p>
+<p>​    ……</p>
+<h4 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h4><h5 id="题目应该包含的信息"><a href="#题目应该包含的信息" class="headerlink" title="题目应该包含的信息"></a>题目应该包含的信息</h5><p>​    <em>论文研究的问题</em></p>
+<p>​    用了什么模型</p>
+<p>​    建议长度：主标题10<del>18字，副标题8</del>15字</p>
+<p>eg：《基于……理论（模型，算法，方案）的……问题的求解》</p>
+<h4 id="摘要"><a href="#摘要" class="headerlink" title="摘要"></a>摘要</h4><h5 id="主要包括："><a href="#主要包括：" class="headerlink" title="主要包括："></a>主要包括：</h5><p>目的、方法、结果（实验结果）、结论（论文结论）</p>
+<p><em>最后写摘要</em></p>
+<p> 500字左右，囊括文章精华，可独立成篇</p>
+<h5 id="结构"><a href="#结构" class="headerlink" title="结构"></a>结构</h5><ol>
+<li><p>综述</p>
+<p>1.1 创新点阐释</p>
+</li>
+<li><p>具体问题的解答</p>
+</li>
+</ol>
+<p>分问题说明在解答种，”基于……理论建立了……模型，采用……方法求解，得到了……结果“。<em>注意连接词</em>（500字左右）</p>
+<ol start="3">
+<li>对模型的简要评价（结论）</li>
+</ol>
+<h4 id="关键词"><a href="#关键词" class="headerlink" title="关键词"></a>关键词</h4><p>3~5个</p>
+<h5 id="组成"><a href="#组成" class="headerlink" title="组成"></a>组成</h5><p>一个重述解决的问题</p>
+<p>一个说明使用模型</p>
+<p>一个说明算法、创新点或求解方法</p>
+<h4 id="问题重述"><a href="#问题重述" class="headerlink" title="问题重述"></a>问题重述</h4><p>切忌大幅抄袭题目中的话，最多半页</p>
+<h4 id="问题分析"><a href="#问题分析" class="headerlink" title="问题分析"></a>问题分析</h4><p>思维过程</p>
+<h4 id="模型假设"><a href="#模型假设" class="headerlink" title="模型假设"></a>模型假设</h4><p>根据对象特性和实际问题做合理简化</p>
+<p>假设一般4~6条</p>
+<p>不要假设题目中给出的条件</p>
+]]></content>
+      <categories>
+        <category>数学建模</category>
+      </categories>
+      <tags>
+        <tag>培训笔记决策</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>右脑笔记：预测专题</title>
+    <url>/2020/07/21/%E5%8F%B3%E8%84%91%E7%AC%94%E8%AE%B0%EF%BC%9A%E9%A2%84%E6%B5%8B%E4%B8%93%E9%A2%98/</url>
+    <content><![CDATA[<h4 id="回归分析"><a href="#回归分析" class="headerlink" title="回归分析"></a>回归分析</h4><p>回归分析并不保证其估计或预测结果是准确的，但可以保证预测结果是“最优”的，即“最可能、最合理”。</p>
+<h5 id="回归分析原理"><a href="#回归分析原理" class="headerlink" title="回归分析原理"></a>回归分析原理</h5><h6 id="一元线性回归方程"><a href="#一元线性回归方程" class="headerlink" title="一元线性回归方程"></a>一元线性回归方程</h6><p>找到最优的一条直线以代表所有观测点分布的趋势，使直线与所有观测点距离的总和达到最小。</p>
+<p><em>最小二乘法</em></p>
+<p>偏差平方和$Q=$的极小值</p>
+<h6 id="回归方程的显著性检验"><a href="#回归方程的显著性检验" class="headerlink" title="回归方程的显著性检验"></a>回归方程的显著性检验</h6>]]></content>
+      <categories>
+        <category>数学建模</category>
+      </categories>
+      <tags>
+        <tag>培训笔记决策</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>模糊综合评价</title>
+    <url>/2020/07/20/%E6%A8%A1%E7%B3%8A%E7%BB%BC%E5%90%88%E8%AF%84%E4%BB%B7/</url>
+    <content><![CDATA[<h4 id="模糊综合评价"><a href="#模糊综合评价" class="headerlink" title="模糊综合评价"></a>模糊综合评价</h4><h5 id="模糊数学"><a href="#模糊数学" class="headerlink" title="模糊数学"></a>模糊数学</h5><p>eg：掉多少头发算是脱发</p>
+<p>模糊集合是客观存在的模糊概念的必然反应。所谓模糊概念就是边界不清晰的概念。</p>
+<p>确定是否属于集合的指标不再是0和1两个值，而是在[0,1]的闭区间上的某一个数（隶属度）。</p>
+<h5 id="模糊综合判定法"><a href="#模糊综合判定法" class="headerlink" title="模糊综合判定法"></a>模糊综合判定法</h5><p>应用模糊关系合成的原理，将一些边界不清、不易定量的因素定量化，从多个因素对评价事物隶属等级状况进行综合性评价。</p>
+<h5 id="步骤"><a href="#步骤" class="headerlink" title="步骤"></a>步骤</h5><h6 id="确定因素集U和评定集V"><a href="#确定因素集U和评定集V" class="headerlink" title="确定因素集U和评定集V"></a>确定因素集U和评定集V</h6><p>评定集V即评价等级的集合，实际上就是对评价对象变化区间的一个划分。</p>
+<h6 id="统计、确定单因素评价隶属度向量，并形成隶属度矩阵R"><a href="#统计、确定单因素评价隶属度向量，并形成隶属度矩阵R" class="headerlink" title="统计、确定单因素评价隶属度向量，并形成隶属度矩阵R"></a>统计、确定单因素评价隶属度向量，并形成隶属度矩阵R</h6><p>隶属度$$r_{ij}$$是多个评价主体</p>
+<h6 id="确定权重向量"><a href="#确定权重向量" class="headerlink" title="确定权重向量"></a>确定权重向量</h6><p>A为评价项目指标的权重或权重系数向量</p>
+<p>另外，还有评定（语）集的数值化结果</p>
+<h6 id="按运算准则计算综合评定向量S及综合评定值μ"><a href="#按运算准则计算综合评定向量S及综合评定值μ" class="headerlink" title="按运算准则计算综合评定向量S及综合评定值μ"></a>按运算准则计算综合评定向量S及综合评定值μ</h6><h5 id="模型"><a href="#模型" class="headerlink" title="模型"></a>模型</h5><p>一般模糊合成算子有以下四种：</p>
+<h6 id="M算子"><a href="#M算子" class="headerlink" title="M算子"></a>M算子</h6>]]></content>
+  </entry>
+  <entry>
+    <title>右脑笔记：层次分析法</title>
+    <url>/2020/07/20/%E5%8F%B3%E8%84%91%E7%AC%94%E8%AE%B0%EF%BC%9A%E5%B1%82%E6%AC%A1%E5%88%86%E6%9E%90%E6%B3%95/</url>
+    <content><![CDATA[<h4 id="决策"><a href="#决策" class="headerlink" title="决策"></a>决策</h4><p>面临多种方案时依据一定的标准选择某一种方案。</p>
+<p>eg：在<em>基础研究</em>、<em>应用研究</em>和<em>数学教育</em>中选择一个领域申报科研课题，考虑<em>成果的贡献</em>、<em>可行性</em>和<em>人才培养</em>。</p>
+<h4 id="层次分析法AHP"><a href="#层次分析法AHP" class="headerlink" title="层次分析法AHP"></a>层次分析法AHP</h4><p>为多目标、多准则或无结构特性的复杂结构决策问题提供简便的决策方法。两两比较依靠经验确定权重。<em>（不推荐）</em></p>
+<h5 id="步骤和方法"><a href="#步骤和方法" class="headerlink" title="步骤和方法"></a>步骤和方法</h5><ol>
+<li>建立层次结构模型</li>
+<li>构造判断（成对比较）矩阵</li>
+<li>层次单排序及其一致性检验</li>
+<li>层次总排序及其一致性检验</li>
+</ol>
+<h6 id="建立层次结构模型"><a href="#建立层次结构模型" class="headerlink" title="建立层次结构模型"></a>建立层次结构模型</h6><p>最高层：目标层，决策的目的，要解决的问题</p>
+<p>最底层：方案层，决策时的备选方案</p>
+<p>中间层：指标层、准则层，考虑的因素、决策的准则</p>
+<p>eg：</p>
+<p>一位同学准备购买一部手机，他考虑的因素有质量，颜色，价格，外形，实用，品牌等因素，比较中意的手机有诺基亚N73，摩托罗拉E8，索爱W890i，但不知选择哪一款为好，请你建立数学模型给他一个好的建议。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">graph TD</span><br><span class="line">手机选择--&gt;质量</span><br><span class="line">手机选择--&gt;颜色</span><br><span class="line">手机选择--&gt;价格</span><br><span class="line">手机选择--&gt;外形</span><br><span class="line">手机选择--&gt;实用</span><br><span class="line">手机选择--&gt;品牌</span><br><span class="line">质量--&gt;诺基亚or摩托罗拉or索爱</span><br><span class="line">颜色--&gt;诺基亚or摩托罗拉or索爱</span><br><span class="line">价格--&gt;诺基亚or摩托罗拉or索爱</span><br><span class="line">外形--&gt;诺基亚or摩托罗拉or索爱</span><br><span class="line">实用--&gt;诺基亚or摩托罗拉or索爱</span><br><span class="line">品牌--&gt;诺基亚or摩托罗拉or索爱</span><br></pre></td></tr></table></figure>
+
+
+
+<h6 id="构造判断（成对比较）矩阵"><a href="#构造判断（成对比较）矩阵" class="headerlink" title="构造判断（成对比较）矩阵"></a>构造判断（成对比较）矩阵</h6><p>一致矩阵法：</p>
+<ol>
+<li>不把所有因素放在一起比较，而是两两相互比较</li>
+<li>对此时采用相对尺度，以尽可能减少不同性质的诸因素相互比较的困难，以提高准确度</li>
+</ol>
+<p>成对比较的因素不宜超过九个，即每层不要超过9个因素</p>
+<table>
+<thead>
+<tr>
+<th align="center">标度</th>
+<th align="center">含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">1</td>
+<td align="center">表示两个因素相比，具有同样重要性</td>
+</tr>
+<tr>
+<td align="center">3</td>
+<td align="center">表示两个因素相比，一个因素比另一个因素稍微重要</td>
+</tr>
+<tr>
+<td align="center">5</td>
+<td align="center">表示两个因素相比，一个因素比另一个因素明显重要</td>
+</tr>
+<tr>
+<td align="center">7</td>
+<td align="center">表示两个因素相比，一个因素比另一个因素强烈重要</td>
+</tr>
+<tr>
+<td align="center">9</td>
+<td align="center">表示两个因素相比，一个因素比另一个因素极端重要</td>
+</tr>
+<tr>
+<td align="center">2，4，6，8</td>
+<td align="center">上述两相邻判断的中值</td>
+</tr>
+<tr>
+<td align="center">倒数</td>
+<td align="center">因素i与j比较的判断$$a_{ij}$$，则因素j与i比较的判断$$a_{ji}=1/a_{ij}$$</td>
+</tr>
+</tbody></table>
+<p>eg：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">graph TD</span><br><span class="line">O手机选择--&gt;质量C1</span><br><span class="line">O手机选择--&gt;颜色C2</span><br><span class="line">O手机选择--&gt;价格C3</span><br><span class="line">O手机选择--&gt;外形C4</span><br><span class="line">O手机选择--&gt;实用C5</span><br><span class="line">O手机选择--&gt;品牌C6</span><br></pre></td></tr></table></figure>
+
+<p>设要比较各准则C1,C2,…,Cn对目标O的重要性</p>
+<p>则：</p>
+<p>$$<br>C_i:C_j=a_{ij}\qquad A=(a_{ij})<em>{ij}\qquad a</em>{ij}&gt;0\qquad a_{ij}=\frac{1}{a_{ij}}<br>$$</p>
+<p>有成对比较矩阵A：<br>$$<br>A=<br>\left[<br>\begin{matrix}<br>1&amp;1/2&amp;4&amp;2&amp;6&amp;3\<br>2&amp;1&amp;8&amp;4&amp;12&amp;6\<br>1/4&amp;1/8&amp;1&amp;1/2&amp;3/2&amp;3/4\<br>1/2&amp;1/4&amp;1/2&amp;1&amp;3&amp;3/2\<br>1/6&amp;1/12&amp;3/2&amp;1/3&amp;1&amp;1/2\<br>1/3&amp;1/6&amp;4/3&amp;2/3&amp;2&amp;1\<br>\end{matrix}<br>\right]<br>$$</p>
+<p>接下来比较矩阵的不一致情况：</p>
+<p>若分析后发现成对比较矩阵不满足传递性（不满足一致性比较）</p>
+<p>eg：$$a_{21}·a_{13}\neq a_{23}$$</p>
+<p><em>成对比较矩阵允许不一致，但要确定不一致的允许范围。</em></p>
+<p>满足$$a_{ij}·a_{ji}=a_{ik}$$的正互反阵A称为一致阵</p>
+<ol>
+<li>A的秩为1，A的唯一非零特征根为n，$$Aw=nw$$</li>
+<li>非零特征跟n所对的特征向量归一化后可作为权向量</li>
+</ol>
+<p>对于不一致的成对比较矩阵A，用对应的最大特征根λ的特征向量作为权向量w，即$$Aw=λw$$</p>
+<p><em>定理：n阶正互反阵A的最大特征根$$λ\geq n$$ ，当且仅当λ=n时为一致阵</em></p>
+<h6 id="层次单排序及其一致性检验"><a href="#层次单排序及其一致性检验" class="headerlink" title="层次单排序及其一致性检验"></a>层次单排序及其一致性检验</h6><p>对应于判断矩阵最大特征根$$λ_{max}$$的特征向量，经归一化（使向量中各元素之和等于1）后记为W</p>
+<p>W的元素为同层次因素对上一层因素的相对重要性排序权值，这一过程称为层次单排序。</p>
+<p>定义一致性指标：$$CI=\frac{λ-n}{n-1}$$</p>
+<p>​    CI=0，有完全的一致性</p>
+<p>​    CI接近于0，有满意的一致性</p>
+<p>​    CI越大，不一致越严重</p>
+<p>为衡量CI的大小，引入随机一致性指标RI。随机构造500个成对比较矩阵，得到500个一致性指标，得到：</p>
+<table>
+<thead>
+<tr>
+<th>n</th>
+<th>1</th>
+<th>2</th>
+<th>3</th>
+<th>4</th>
+<th>5</th>
+<th>6</th>
+<th>7</th>
+<th>8</th>
+<th>9</th>
+<th>10</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>RI</td>
+<td>0</td>
+<td>0</td>
+<td>0.58</td>
+<td>0.90</td>
+<td>1.12</td>
+<td>1.24</td>
+<td>1.32</td>
+<td>1.41</td>
+<td>1.45</td>
+<td>1.49</td>
+</tr>
+<tr>
+<td>定义一致性比率：$$CR=\frac{CI}{RI}$$</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<p>当一致性比率$$CR&lt;0.1$$时，认为A的不一致程度在容许范围之内，有满意的一致性，则通过一致性检验。</p>
+<p>正互反矩阵最大特征根和特征向量的简化计算：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">graph LR</span><br><span class="line">A--&gt;列向量归一化</span><br><span class="line">列向量归一化--&gt;求行和</span><br><span class="line">求行和--&gt;归一化&#x3D;w</span><br></pre></td></tr></table></figure>
+
+<h6 id="层次总排序及其一致性检验"><a href="#层次总排序及其一致性检验" class="headerlink" title="层次总排序及其一致性检验"></a>层次总排序及其一致性检验</h6><p>计算某一层次所有因素对于最高层（总目标）相对重要性的权值，称为层次总排序。</p>
+<p>从最高层次到最低层次依次进行。</p>
+<p>设B层对上层A中因素的层次单排序一致性指标为$$CI_j$$，随机一致性为$$RI_j$$，则层次总排序的一致性比率为：</p>
+<p>$$<br>CR=\frac{a_1CI_1+a_2CI_2+……+a_mCI_m}{a_1RI_1+a_2RI_2+……+a_mRI_m}<br>$$<br>当$$CR&lt;0.1$$时，认为层次总排序通过一致性检验。层次总排序具有满意的一致性。</p>
+<p>选择手机：</p>
+<p>假设三款手机关于6各标准的判断矩阵为<br>$$<br>B_1=<br>\left[<br>\begin{matrix}<br>1&amp;1/4&amp;1/2\<br>4&amp;1&amp;3\<br>1&amp;1/2&amp;1<br>\end{matrix}<br>\right]<br>$$</p>
+<p>$$<br>B_2=<br>\left[<br>\begin{matrix}<br>1&amp;1/4&amp;1/4\<br>4&amp;1&amp;1/2\<br>5&amp;2&amp;1<br>\end{matrix}<br>\right]<br>$$</p>
+<p>$$<br>B_3=<br>\left[<br>\begin{matrix}<br>1&amp;3&amp;1/3\<br>1/3&amp;1&amp;1\<br>3&amp;1&amp;1<br>\end{matrix}<br>\right]<br>$$</p>
+<p>……</p>
+<p>将权值w构成对应的特征向量与A的特性向量进行矩阵的乘法，取结果中最大为所选机型。</p>
+]]></content>
+      <categories>
+        <category>数学建模</category>
+      </categories>
+      <tags>
+        <tag>培训笔记决策</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>左脑笔记：Thinking Patterns in the East and West</title>
+    <url>/2020/07/18/%E5%B7%A6%E8%84%91%E7%AC%94%E8%AE%B0%EF%BC%9AThinking-Patterns-in-the-East-and-West/</url>
+    <content><![CDATA[<h5 id="Set-thinking-tendencies-（思维定势）"><a href="#Set-thinking-tendencies-（思维定势）" class="headerlink" title="Set thinking tendencies （思维定势）"></a>Set thinking tendencies （思维定势）</h5><p>The ancient Greek and Chinese philosophies respectively played a vital role in the formation of different thinking patterns in the east and west.</p>
+<p>The differences in traditional thinking patterns can roughly be summarized as the following.</p>
+<p><img src="C:%5CUsers%5CLenovo%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200718090355850.png" alt="image-20200718090355850"></p>
+<p>eg: </p>
+<p>Traditional Chinese Medicine and Western medicine</p>
+<p>TCM regards human body as an organic whole, taking the connections of all parts of the body into consideration.</p>
+<p>Western medicine divides human bodies into different parts and treat them accordingly.</p>
+<p>Painting</p>
+<p>In China, a synthesis of different art forms: calligraphy, painting, poetry and stamps, while in the west, painting is painting and poetry is poetry.</p>
+<h6 id="Concrete-vs-Abstract"><a href="#Concrete-vs-Abstract" class="headerlink" title="Concrete vs. Abstract"></a>Concrete vs. Abstract</h6><p>Concrete thinking (thinking in image) refers to the thinking pattern by which people make an understanding of something abstract through analysis, generalization, analogy, association or metaphor.</p>
+<h6 id="Tortuous-vs-Straight"><a href="#Tortuous-vs-Straight" class="headerlink" title="Tortuous vs. Straight"></a>Tortuous vs. Straight</h6><p>The problem-solving approaches and thinking patterns of English-speakers from the US were more linear and direct than that of th Semitic Asian, Romance language, or Russian speakers.</p>
+<p>Asians employed a circular approach.</p>
+<p>eg: Concept of time</p>
+<p>To the Chinese people, time is circular, just as the changing of Yin and Yang. With this idea, the Chinese people use time more freely and elastically, they are not so punctual.</p>
+<h6 id="Inductive-vs-Deductive"><a href="#Inductive-vs-Deductive" class="headerlink" title="Inductive vs. Deductive"></a>Inductive vs. Deductive</h6><p>Traditionally, Chinese people tended to summarize or make an induction of their experience or insight to form vague theories, concepts or categories on the basis of practice or intuition. Such concepts or categories, like holy words or maxims, without clear definition or careful deduction, seldom became a scientific system.</p>
+<p>While in the past Aristotle, the ancient Greek philosopher, stressed deduction. </p>
+<h6 id="Subjective-vs-Objective"><a href="#Subjective-vs-Objective" class="headerlink" title="Subjective vs. Objective"></a>Subjective vs. Objective</h6><p>Subjectivity is the characteristic of intuition. Chinese people stress more on subjective thinking. They follow “Oneness Between Man and Nature” and tend to describe something from their own point of view, thus, “somebody” is often used as the subject of a sentence.</p>
+]]></content>
+      <categories>
+        <category>English</category>
+      </categories>
+      <tags>
+        <tag>辅修笔记</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>左脑笔记：Meaning (Semantics)</title>
+    <url>/2020/07/18/%E5%B7%A6%E8%84%91%E7%AC%94%E8%AE%B0%EF%BC%9AMeaning-(Semantics)/</url>
+    <content><![CDATA[<h5 id="Definition"><a href="#Definition" class="headerlink" title="Definition:"></a>Definition:</h5><p>Semantics is the study of <em>meaning</em> in language.</p>
+<p>Meaning has been studied for thousands of years by philosophers, logicians and linguists.</p>
+<p>eg: What does “capitalist” <em>mean</em> to you?</p>
+<p>Seven types of meaning:</p>
+<ol>
+<li>conceptual meaning</li>
+<li>connotative meaning</li>
+<li>social meaning</li>
+<li>affective meaning</li>
+<li>reflected meaning</li>
+<li>collocative meaning</li>
+<li>thematic meaning</li>
+</ol>
+<h6 id="Conceptual-meaning-（概念意义-外延意义）"><a href="#Conceptual-meaning-（概念意义-外延意义）" class="headerlink" title="Conceptual meaning （概念意义/外延意义）"></a>Conceptual meaning （概念意义/外延意义）</h6><p>Also called ‘denotative’ or ‘cognitive’ meaning.</p>
+<p>Refers to logical, cognitive or denotative.</p>
+<p>Concerned with the relationship between a word and the thing it denotes, or refers to.</p>
+<h6 id="Connotative-meaning-（内涵意义）"><a href="#Connotative-meaning-（内涵意义）" class="headerlink" title="Connotative meaning （内涵意义）"></a>Connotative meaning （内涵意义）</h6><p>What is communicated by virtue of what language refers to.</p>
+<p>Involving the ‘real world’ experience one associates with expression when one uses or hears it. </p>
+<p><em>Unstable</em>: they vary considerably according to culture, historical period, and the experience of the individual.</p>
+<h6 id="Denotation-and-Connotation"><a href="#Denotation-and-Connotation" class="headerlink" title="Denotation and Connotation"></a>Denotation and Connotation</h6><p>eg: Mr. Smith is a <em>white</em> man. He was looking rather <em>green</em> the other day. He has been feeling <em>blue</em> these days. When I saw him, he was in <em>brown</em> mood, I hope he’ll soon be in the <em>pink</em> again.</p>
+<h6 id="Social-meaning"><a href="#Social-meaning" class="headerlink" title="Social meaning"></a>Social meaning</h6><p>Dialect: the language of a geographical region or of a social class.</p>
+<p>Time: the language of the 18th.</p>
+<p>Status: polite, colloquial, slang, etc.</p>
+<h6 id="Affective-meaning"><a href="#Affective-meaning" class="headerlink" title="Affective meaning"></a>Affective meaning</h6><p>Reflecting the personal feeling of the speaker, including his attitude to the listener, or his attitude to something he is talking  about. </p>
+<p>Such as: 滚出去！</p>
+<p>‘Colorful’ meaning:</p>
+<p>Commendatory: tough-minded; resolute; shrewd</p>
+<p>Derogatory: ruthless; obstinate</p>
+<h6 id="Reflected-meaning"><a href="#Reflected-meaning" class="headerlink" title="Reflected meaning"></a>Reflected meaning</h6><p>What is communicated through association with another sense of the same expression. Such as,</p>
+<p>When you hear ‘click the <em>mouse</em> twice’, you think of Gerry being hit twice by Tom.</p>
+<p>also: make water</p>
+<h6 id="Collocative-meaning-（搭配意义）"><a href="#Collocative-meaning-（搭配意义）" class="headerlink" title="Collocative meaning （搭配意义）"></a>Collocative meaning （搭配意义）</h6><p>The associations a word acquires on account of the meaning of words which tend to occur in its environment.</p>
+<p>eg: pretty; handsome</p>
+<h6 id="Thematic-meaning-（主题意义）"><a href="#Thematic-meaning-（主题意义）" class="headerlink" title="Thematic meaning （主题意义）"></a>Thematic meaning （主题意义）</h6><p>What is communicated by the way in which a speaker or writer organizes the massage, in terms of ordering, focus, and emphasis. </p>
+<h5 id="The-Referential-Theory"><a href="#The-Referential-Theory" class="headerlink" title="The Referential Theory"></a>The Referential Theory</h5><p>Referential theory: the theory of meaning which relates the meaning of a word to the thing it refers to, or stand for.</p>
+<p>Sense（涵意）: the abstract properties of an entity.</p>
+<p>Reference（指称）: the concrete entities having those properties.</p>
+<p><em>Every word has a sense, but not every word has a reference.</em></p>
+<h5 id="Sense-Relations"><a href="#Sense-Relations" class="headerlink" title="Sense Relations"></a>Sense Relations</h5><h6 id="Antonymy"><a href="#Antonymy" class="headerlink" title="Antonymy"></a>Antonymy</h6><ol>
+<li>Gradable antonymy</li>
+</ol>
+<p>3 characteristics:</p>
+<p>They are gradable, the denial of one is not necessarily the assertion of the other. eg: “我们先定一个小目标……”</p>
+<p>They are graded against different norms a big car.</p>
+<p>One member of the pair (usually the higher grade) server as the cover term. eg: 我们只会问“你多大了？”而不是“你多小了？”</p>
+<ol start="2">
+<li>Complementary antonymy</li>
+</ol>
+<p>Not A= B （非A即B）</p>
+<ol start="3">
+<li>Converse antonymy （反向反义词）</li>
+</ol>
+<p>成对出现的反义词</p>
+<h6 id="Hyponymy-inclusiveness-relation"><a href="#Hyponymy-inclusiveness-relation" class="headerlink" title="Hyponymy (inclusiveness relation)"></a>Hyponymy (inclusiveness relation)</h6><p>A is included in/ a kind of B</p>
+<p>A superordinate may be missing.</p>
+<p>eg: “Color” is not the superordinate of “green, white,……”</p>
+<p>Hyponyms may be missing.</p>
+<p>eg: uncle, rice in English in contrast to Chinese 叔叔，伯伯，舅舅，稻，谷，米，饭</p>
+<h5 id="Componential-Analysis"><a href="#Componential-Analysis" class="headerlink" title="Componential Analysis"></a>Componential Analysis</h5><p>The modern approach to the study of meaning, using <u>semantic feature</u> or <u>semantic component</u> to analyze the meaning of words.</p>
+<p>eg:</p>
+<p>boy [HUMAN, YOUNG, MALE]</p>
+<p>woman [HUMAN, ADULT, FEMALE]</p>
+<p>Two words or expressions which have the same semantic components will be  synonymous.</p>
+<p>Words which have a contrasting components are antonyms.</p>
+<p>Words which have all the semantic components of another are hyponyms.</p>
+]]></content>
+      <categories>
+        <category>English</category>
+      </categories>
+      <tags>
+        <tag>辅修笔记</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>右脑笔记：数学建模的实践方法</title>
+    <url>/2020/07/17/%E5%8F%B3%E8%84%91%E7%AC%94%E8%AE%B0%EF%BC%9A%E6%95%B0%E5%AD%A6%E5%BB%BA%E6%A8%A1%E7%9A%84%E5%AE%9E%E8%B7%B5%E6%96%B9%E6%B3%95/</url>
+    <content><![CDATA[<h5 id="问题的识题与分析"><a href="#问题的识题与分析" class="headerlink" title="问题的识题与分析"></a>问题的识题与分析</h5><ol>
+<li>建模的目的是什么？</li>
+<li>需要解决的问题是什么？核心问题是什么？</li>
+<li>问题的关键词是什么？</li>
+<li>解决问题的思路是什么？</li>
+<li>问题有什么特点、限制条件？</li>
+<li>从条件和数据可以得到什么信息？</li>
+<li>数据的来源是否可靠？</li>
+<li>所给条件和数据有什么意义和作用？</li>
+<li>哪些条件是本质的？</li>
+<li>哪些条件中可变动？</li>
+<li>是否需要适当补充一些条件和数据？</li>
+</ol>
+<h5 id="数学模型的建立方法"><a href="#数学模型的建立方法" class="headerlink" title="数学模型的建立方法"></a>数学模型的建立方法</h5><h6 id="给出合理假设"><a href="#给出合理假设" class="headerlink" title="给出合理假设"></a>给出<em>合理</em>假设</h6><ol>
+<li>关于是否关于包含某些因素的假设</li>
+<li>关于条件相对强弱的假设</li>
+<li>关于各因素影响相对大小的假设</li>
+<li>关于模型适用范围的假设</li>
+</ol>
+<h6 id="模型的求解方法"><a href="#模型的求解方法" class="headerlink" title="模型的求解方法"></a>模型的求解方法</h6><ol>
+<li>尽量使用自己熟悉的方法</li>
+<li>用解析方法或数值方法</li>
+<li>使用工具软件说明使用原理和程序，避免黑箱操作</li>
+<li>注意问题的针对性和适用性</li>
+</ol>
+<h6 id="模型解的分析和检验方法"><a href="#模型解的分析和检验方法" class="headerlink" title="模型解的分析和检验方法"></a>模型解的分析和检验方法</h6><p>误差分析：</p>
+<ol>
+<li>建模假设产生的误差</li>
+<li>近似求解方法产生的误差</li>
+<li>计算机产生的舍入误差</li>
+<li>测量或实验数据产生的误差</li>
+</ol>
+<p>模型结果分析：</p>
+<ol>
+<li>分析求解结果是否满足实际问题的需求</li>
+<li>如有偏差，分析其原因，假设或模型，还是求解方法？</li>
+</ol>
+<h5 id="模型解的分析和检验方法-1"><a href="#模型解的分析和检验方法-1" class="headerlink" title="模型解的分析和检验方法"></a>模型解的分析和检验方法</h5><h6 id="灵敏度分析："><a href="#灵敏度分析：" class="headerlink" title="灵敏度分析："></a>灵敏度分析：</h6><ol>
+<li>某些参数的扰动对模型结果产生的影响</li>
+<li>从工程研究的角度必须要做的工作</li>
+</ol>
+<h6 id="模型的模拟检验或仿真"><a href="#模型的模拟检验或仿真" class="headerlink" title="模型的模拟检验或仿真"></a>模型的模拟检验或仿真</h6><ol>
+<li>模拟与仿真的内涵</li>
+<li>数学建模工程问题是必须要做的工作</li>
+<li>利用已有的模型进行模拟检验</li>
+<li>利用已有的算法思想进行模拟或仿真</li>
+</ol>
+<h5 id="竞赛论文的写作方法"><a href="#竞赛论文的写作方法" class="headerlink" title="竞赛论文的写作方法"></a>竞赛论文的写作方法</h5><p><img src="C:%5CUsers%5CLenovo%5CDesktop%5Cimage-20200717101524263.png" alt="image-20200717101524263"></p>
+<h6 id="评价论文的主要标准"><a href="#评价论文的主要标准" class="headerlink" title="评价论文的主要标准"></a>评价论文的主要标准</h6><ol>
+<li>假设的合理性</li>
+<li>建模的创造性</li>
+<li>结果的正确性</li>
+<li>表述的清晰性</li>
+</ol>
+]]></content>
+      <categories>
+        <category>数学建模</category>
+      </categories>
+      <tags>
+        <tag>培训笔记</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>右脑笔记：数据分析（一）</title>
+    <url>/2020/07/17/%E5%8F%B3%E8%84%91%E7%AC%94%E8%AE%B0%EF%BC%9A%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%EF%BC%88%E4%B8%80%EF%BC%89/</url>
+    <content><![CDATA[<h4 id="主成分分析"><a href="#主成分分析" class="headerlink" title="主成分分析"></a>主成分分析</h4>]]></content>
+      <categories>
+        <category>数学建模</category>
+      </categories>
+      <tags>
+        <tag>思维碎片</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>左脑笔记：Cultural Values</title>
+    <url>/2020/07/17/%E5%B7%A6%E8%84%91%E7%AC%94%E8%AE%B0%EF%BC%9ACultural-Valid/</url>
+    <content><![CDATA[<h5 id="Translation"><a href="#Translation" class="headerlink" title="Translation"></a>Translation</h5><p>blue movie= pron</p>
+<p>blue blood= innocent</p>
+<p>a yellow dog= 卑鄙小人</p>
+<p>white hope= 被寄予厚望的人</p>
+<p>black sheep= 害群之马</p>
+<p>brown sugar= 红糖</p>
+<p>green hands= 新手</p>
+<p>be beaten black and blue= 打得鼻青脸肿</p>
+<p>Chinese cabbage= 白菜</p>
+<p>plain boiled water= 白开水</p>
+<p>plain boiled pork= 白肉</p>
+<h5 id="Definition"><a href="#Definition" class="headerlink" title="Definition"></a>Definition</h5><p>Cultural values are “one’s principles or standards: one;s judgment of what is valuable or important in life.”</p>
+<h6 id="Types"><a href="#Types" class="headerlink" title="Types"></a>Types</h6><p>Universal cultural values and Specific cultural values</p>
+<h6 id="Characteristic"><a href="#Characteristic" class="headerlink" title="Characteristic"></a>Characteristic</h6><ol>
+<li>Values are generally normative</li>
+<li>Values are hidden</li>
+<li>Values are interrelated</li>
+<li>Values are learned</li>
+<li>Values are changeable</li>
+</ol>
+]]></content>
+      <categories>
+        <category>English</category>
+      </categories>
+      <tags>
+        <tag>辅修笔记</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>左脑笔记：From Word to Text (Syntax)</title>
+    <url>/2020/07/16/%E5%B7%A6%E8%84%91%E7%AC%94%E8%AE%B0%EF%BC%9AFrom-Word-to-Text-(Syntax)/</url>
+    <content><![CDATA[<h4 id="Syntax-grammar"><a href="#Syntax-grammar" class="headerlink" title="Syntax (grammar)"></a>Syntax (grammar)</h4><p>Syntax refers to the study of  the rules governing the way different constituents are combined to form sentences in a language, or the study of the interrelationships between elements in sentence structures.</p>
+<h5 id="Syntactic-relations"><a href="#Syntactic-relations" class="headerlink" title="Syntactic relations"></a>Syntactic relations</h5><p>Syntactic relations can be analyzed into three kinds, namely, positional relations, relations of substitutability, and relations of co-occurrence. </p>
+<h6 id="Positional-Relation"><a href="#Positional-Relation" class="headerlink" title="Positional Relation"></a>Positional Relation</h6><p>For language to fulfill its communicative function, it must have a way to mark the grammatical roles of the various phrases that can occur in a clause.</p>
+<p><em>Positional relation</em>, or <em>word order</em>, refers to the sequential arrangement of words in a language.</p>
+<p>eg: <u>The boy</u> kicked <u>the ball</u>.</p>
+<p>NP (subjective)   NP(objective)</p>
+<p>There are three basic ways to classify languages in the world.</p>
+<ol>
+<li>word order</li>
+<li>genetic classifications</li>
+<li>areal classifications</li>
+</ol>
+<p>There are 6 possible types of language:</p>
+<p>SVO; VSO; SOV; OVS and VOS.</p>
+<h6 id="Relation-of-Substitutability"><a href="#Relation-of-Substitutability" class="headerlink" title="Relation of Substitutability"></a>Relation of Substitutability</h6><p>The Relation of Substitutability refers to classes or sets of words substitutable for each other grammatically in sentences with the same structure.</p>
+<h6 id="Relation-of-Co-occurrence"><a href="#Relation-of-Co-occurrence" class="headerlink" title="Relation of Co-occurrence"></a>Relation of Co-occurrence</h6><p>It means that words of different sets of clauses may permit. </p>
+<p>Relations of co-occurrence partly belong to syntagmatic relations, partly to paradigmatic.</p>
+<p>eg: preceded by (NP) followed by</p>
+<h5 id="Grammatical-Construction-and-its-Constituents"><a href="#Grammatical-Construction-and-its-Constituents" class="headerlink" title="Grammatical Construction and its Constituents"></a>Grammatical Construction and its Constituents</h5><h6 id="Grammatical-Construction"><a href="#Grammatical-Construction" class="headerlink" title="Grammatical Construction"></a>Grammatical Construction</h6><p>any syntactic string of words ranging from sentences over phrasal structures to certain complex lexemes.</p>
+<p>eg: an apple; ate an apple; Mary ate an apple</p>
+<h6 id="Immediate-Constituents"><a href="#Immediate-Constituents" class="headerlink" title="Immediate Constituents"></a>Immediate Constituents</h6><p>Constituent is a part of a larger linguistic unit. Several constituents together form a construction.</p>
+<p>eg: </p>
+<p>the girl (NP)</p>
+<p>ate the apple (VP) </p>
+<p>The girl ate the apple(S)</p>
+<h6 id="Immediate-Constituent-Analysis"><a href="#Immediate-Constituent-Analysis" class="headerlink" title="Immediate Constituent Analysis"></a>Immediate Constituent Analysis</h6><p>Tree diagram: </p>
+<p><img src="C:%5CUsers%5CLenovo%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200716194352136.png" alt="image-20200716194352136"></p>
+<h6 id="Endocentric-and-Exocentric-Constructions"><a href="#Endocentric-and-Exocentric-Constructions" class="headerlink" title="Endocentric and Exocentric Constructions"></a>Endocentric and Exocentric Constructions</h6><p>Endocentric construction is one whose distribution is functionally equivalent to that of one or more of its constituents.</p>
+<p>Exocentric construction refers to a group of syntactically related words where none of the words is functionally equivalent to the group as a whole.</p>
+<p>eg:</p>
+<p>The boy smiled. (Neither constituent can substitute for the sentence structure as a whole.)</p>
+<p>He hid behind the door. (Neither constituent can function as an adverbial.)</p>
+<p>John seemed angry. (After division, the connective construction no longer exists.)</p>
+<h6 id="Coordination-and-Subordination"><a href="#Coordination-and-Subordination" class="headerlink" title="Coordination and Subordination"></a>Coordination and Subordination</h6><p>Endocentric constructions fall into two main types.</p>
+<p>Coordination is a common syntactic pattern in English and other languages formed by grouping together two or more categories of the same type with the help of a conjunction such as <em>and</em>, <em>but</em> and <em>or</em>.</p>
+<p>Subordination refers to the process or result of linking linguistic units so that they have different syntactic status, one being dependent upon the other, and usually a constituent of the other.</p>
+<p>eg:</p>
+<p>(My brother) <u>can</u> <em>drink</em> (wine).</p>
+<p><em>Swimming</em> <u>in the lake</u> (is fun).</p>
+<h5 id="Syntactic-Function"><a href="#Syntactic-Function" class="headerlink" title="Syntactic Function"></a>Syntactic Function</h5><p>The syntactic function shows the relationship between a linguistic form and other parts of the linguistic pattern in which it is used.</p>
+<h6 id="Subject"><a href="#Subject" class="headerlink" title="Subject"></a>Subject</h6><p>In English, the subject of a sentence is often said to be the agent, or the doer of the action, which the object is the person or thing acted upon by th agent.</p>
+<p>eg: Mary slapped John</p>
+<p>but is clearly wrong in:</p>
+<p>John was bitten by a dog.</p>
+<p>In order to account for the case of subject in passive voice, we have two other terms, *”grammatical subject”* and *”logical subject”*.</p>
+<p>Another traditional definition of the subject is “what the sentence is about”</p>
+<p>eg: Bill is a very crafty fellow.</p>
+<h6 id="Object"><a href="#Object" class="headerlink" title="Object"></a>Object</h6><p>Object is also a term hard to define. Since, traditionally, subject can be defined as the doer of the action, object may refer to the “receiver” or “goal” of an action, and it is further classified into <em>Direct Object</em> and <em>Indirect Object</em>.</p>
+<p>eg: Mother <u>gave my sister</u> (IO) <u>a doll</u> (DO).</p>
+]]></content>
+      <categories>
+        <category>English</category>
+      </categories>
+      <tags>
+        <tag>辅修笔记</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>左脑笔记：What is inter-cultural communication?</title>
+    <url>/2020/07/16/%E5%B7%A6%E8%84%91%E7%AC%94%E8%AE%B0%EF%BC%9AWhat-is-inter-cultural-communication/</url>
+    <content><![CDATA[<h4 id="Easy-and-Difficult"><a href="#Easy-and-Difficult" class="headerlink" title="Easy and Difficult"></a>Easy and Difficult</h4><h5 id="Examples"><a href="#Examples" class="headerlink" title="Examples"></a>Examples</h5><h6 id="White-Elephant"><a href="#White-Elephant" class="headerlink" title="White Elephant"></a>White Elephant</h6><p>A thing that is useless and no longer needed, although it may have cost a lot of money.</p>
+<h6 id="“You’d-better-put-on-more-clothes-”"><a href="#“You’d-better-put-on-more-clothes-”" class="headerlink" title="“You’d better put on more clothes.”"></a>“You’d better put on more clothes.”</h6><p>US people like to be independent.</p>
+<h5 id="Two-Kinds-of-Fluency"><a href="#Two-Kinds-of-Fluency" class="headerlink" title="Two Kinds of Fluency"></a>Two Kinds of Fluency</h5><p>English fluency and communicate fluency.</p>
+<h4 id="Language-and-Culture"><a href="#Language-and-Culture" class="headerlink" title="Language and Culture"></a>Language and Culture</h4><h5 id="Denotation-and-Connotation"><a href="#Denotation-and-Connotation" class="headerlink" title="Denotation and Connotation"></a>Denotation and Connotation</h5><p>Denotation（指示意义）: conceptual, explicit or surface meaning of a word/term</p>
+<p>Connotation（联想意义）: the socio-cultural or the implicit meaning of a word/term</p>
+<h5 id="Six-Categories"><a href="#Six-Categories" class="headerlink" title="Six Categories"></a>Six Categories</h5><h6 id="Words-in-one-language-that-have-equivalents-or-near-equivalent-in-the-other-language"><a href="#Words-in-one-language-that-have-equivalents-or-near-equivalent-in-the-other-language" class="headerlink" title="Words in one language that have equivalents or near equivalent in the other language."></a>Words in one language that have equivalents or near equivalent in the other language.</h6><p>eg: fox; pig </p>
+<h6 id="Words-in-two-different-language-that-appear-to-refer-to-the-same-thing-on-the-surface-but-may-actually-refer-to-quite-different-things-or-have-different-connotations"><a href="#Words-in-two-different-language-that-appear-to-refer-to-the-same-thing-on-the-surface-but-may-actually-refer-to-quite-different-things-or-have-different-connotations" class="headerlink" title="Words in two different language that appear to refer to the same thing on the surface, but may actually refer to quite different things or have different connotations."></a>Words in two different language that appear to refer to the same thing on the surface, but may actually refer to quite different things or have different connotations.</h6><p>eg: west wind; east wind</p>
+<p>In China “west wind” may bring deep autumn, cold which makes life withering. The east wind, which is warm, blows from the pacific Ocean. As it brings the colorful spring so it is usually used positively, symbolizing progress and prosperity.</p>
+<p>In Britain, the east wind, which is cold, blows from the north of European continent, like the west wind in China.</p>
+<p>also: compromise</p>
+<p>Passive in Chinese but active in English, especially in business negotiation.</p>
+<h6 id="Words-in-one-language-that-seem-to-have-equivalent-in-the-other-but-these-so-called-equivalents-are-only-partly-equivalent"><a href="#Words-in-one-language-that-seem-to-have-equivalent-in-the-other-but-these-so-called-equivalents-are-only-partly-equivalent" class="headerlink" title="Words in one language that seem to have equivalent in the other, but these so-called equivalents are only partly equivalent."></a>Words in one language that seem to have equivalent in the other, but these so-called equivalents are only partly equivalent.</h6><p>eg: intellectual; family</p>
+<p>also: carder（干部）</p>
+<p>In English-speaking countries, many people don’t know what it really means.</p>
+<p>also: social science</p>
+<p>In Chinese, it covers all the fields except the ones in the natural science and applied science.</p>
+<h6 id="Words-that-have-connotations-in-one-language-but-none-in-the-other"><a href="#Words-that-have-connotations-in-one-language-but-none-in-the-other" class="headerlink" title="Words that have connotations in one language but none in the other."></a>Words that have connotations in one language but none in the other.</h6><p>eg: pine tree; bamboo; plum blossom; orchid; chrysanthemum</p>
+<p>also: 13</p>
+<h6 id="Words-that-are-represented-by-fewer-words-in-one-language-but-by-more-in-the-other-language"><a href="#Words-that-are-represented-by-fewer-words-in-one-language-but-by-more-in-the-other-language" class="headerlink" title="Words that are represented by fewer words in one language but by more in the other language."></a>Words that are represented by fewer words in one language but by more in the other language.</h6><p>eg: teacher; uncle; aunt; niece; sister; brother</p>
+<p>also: 律师; advocate; attorney; barrister; lawyer; solicitor</p>
+<p>also: 副; vice-chairman; associate professor; deputy director</p>
+<h6 id="Words-in-one-language-that-find-no-counterparts-in-the-other-language"><a href="#Words-in-one-language-that-find-no-counterparts-in-the-other-language" class="headerlink" title="Words in one language that find no counterparts in the other language."></a>Words in one language that find no counterparts in the other language.</h6><p>eg: Beetles</p>
+<h5 id="Metaphor-and-Association"><a href="#Metaphor-and-Association" class="headerlink" title="Metaphor and Association"></a>Metaphor and Association</h5><p>Metaphors are found in all language.</p>
+<h6 id="Animals"><a href="#Animals" class="headerlink" title="Animals"></a>Animals</h6><p>a bull in a china shop: an angry, snorting bull charging into a shop filled with exquisite fragile porcelain</p>
+<p>owl: English: stands for wisdom, as wise as an owl</p>
+<p>​        Chinese: a sign of bad luck</p>
+<p>peacock: English: stands for someone who is vain and fond showing off, as vain as a peacock, as proud as a peacock.</p>
+<p>also: bear; dragon; Chinese Zodiac（生肖）</p>
+<h6 id="Plant-Words"><a href="#Plant-Words" class="headerlink" title="Plant Words"></a>Plant Words</h6><p>similarities: </p>
+<p>laurel: symbol for glory</p>
+<p>differences:</p>
+<p>eg: clover; daffodil</p>
+<h6 id="Color-Words"><a href="#Color-Words" class="headerlink" title="Color Words"></a>Color Words</h6><p>in English eg: </p>
+<p>white man: 忠实可靠的人</p>
+<p>green: 脸色不好</p>
+<p>blue: 闷闷不乐</p>
+<p>in a brown study: 心事重重</p>
+<p>in the pink: 振作</p>
+<h6 id="Taboos"><a href="#Taboos" class="headerlink" title="Taboos"></a>Taboos</h6><p>eg: Thou shalt not speak my name in vain.</p>
+]]></content>
+      <categories>
+        <category>English</category>
+      </categories>
+      <tags>
+        <tag>辅修笔记</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>目前已经成功建立的模型：</title>
+    <url>/2020/05/15/%E7%9B%AE%E5%89%8D%E5%B7%B2%E7%BB%8F%E6%88%90%E5%8A%9F%E5%BB%BA%E7%AB%8B%E7%9A%84%E6%A8%A1%E5%9E%8B%EF%BC%9A/</url>
+    <content><![CDATA[<h4 id="目前已经成功建立的模型："><a href="#目前已经成功建立的模型：" class="headerlink" title="目前已经成功建立的模型："></a>目前已经成功建立的模型：</h4><h5 id="图示："><a href="#图示：" class="headerlink" title="图示："></a>图示：</h5><p><img src="C:%5CUsers%5CLenovo%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200516171014636.png" alt="image-20200516171014636"></p>
+<h5 id="模型中的变量："><a href="#模型中的变量：" class="headerlink" title="模型中的变量："></a>模型中的变量：</h5><p>t：时间变量，单位为day</p>
+<p>S：自由行动的易感人群，对该病毒没有抗体，接触传染期人群可能被传染；</p>
+<p>E：自由行动的潜伏人群，被感染后处于潜伏期的人群，无相关患病症状；</p>
+<p>I： 自由行动的感染人群，代表潜伏期之后已具有传染性的人群；</p>
+<p>R：移除人群，治愈并获得免疫，既不能传染他人也不能被传染；</p>
+<p>P：与患者的密切接触人群，包括潜伏人群和易感人群，他们已被隔离诊断治疗；</p>
+<p>$S_{in}$：易感者输入速率的时间函数；</p>
+<p>$E_{in}$</p>
+<p>$I_{in}$</p>
+<p>Q：确诊人群，不具有自由活动能力的病人；</p>
+<p>$N’$：某批次返校人数；</p>
+<p>$S_{in}$：某批次返校人数中关于易感者人数的函数；</p>
+<p>$E_{in}$：某批次返校人数中关于潜伏者人数的函数，</p>
+<p>$I_{in}$：</p>
+<p>$f$：疾病发生率，单位时间内被所有自由行动的易感和潜伏人群感染的自由行动易感人群：</p>
+<p>$$f=\frac{β_IU(N)}{N(t)}(\frac{β_E}{β_I}E(t)+I(t))$$</p>
+<p>其中：</p>
+<p>U(N)：接触率，即单位时间内病人与他人接触的次数 U(N)=kN 其中k为常系数 ，$k$与$k_1$在学校隔离干预措施极低时可视为相等</p>
+<p>暂定为500，k=0.01563</p>
+<p>N(t)：当前时间的总人数</p>
+<p>$β_I$：感染者的传染率系数——受到学校日常干预措施强度影响</p>
+<p>$β_E$：潜伏者的传染率系数——受到学校日常干预措施强度影响</p>
+<p>ε：潜伏者转换为感染者的概率，$k_1$反应学校的隔离干预措施应对强度</p>
+<p>$$ε=\frac{1}{平均潜伏天数}（1-k_1)=0.14062(原始状态)$$</p>
+<p>潜伏期为3~7天，最长不超过14天，我们取5天作为平均潜伏天数</p>
+<p>$γ$：移出率系数，反应单位时间内收治病人康复的速率系数</p>
+<p>$γ=\frac{1}{病程天数}=0.05882$</p>
+<p>病程天数17天</p>
+<p>$d_{iq}$：学校对自由自由患病人群的反应速度速率</p>
+<p>$d_{iq}=\frac{1}{在明显症状下发现并被隔离的天数}=0.05882（初始状态）$</p>
+<p>$d_{pq}$：隔离转阳率系数</p>
+<p>$d_{pq}=\frac{1}{在隔离情况下出现症状并被收治的天数}(1-\frac{P_s}{P(t)})=0.14286·（1-0.6341）=0.05219$</p>
+<p>隔离情况下出现病症的天数为7天</p>
+<p>$d_{sp}$：被隔离的易感者在总易感者中的比例，$k_1$反应学校的隔离干预措施应对强度</p>
+<p>$d_{sp}=k_1$=0.01563（初始状态）</p>
+<p>$b_{sp}$：反应易感者回到自由空间的速率系数</p>
+<p>$b_{sp}=\frac{P_S}{P(t)}(\frac{1}{观察天数})$=0.6341·0.07143=0.04529</p>
+<p>$d_{eq}$：被隔离的潜伏者在总潜伏者中的比例，$k_1$反应学校的隔离干预措施应对强度</p>
+<p>$d_{eq}=k_1$=0.01563（初始状态）</p>
+<h5 id="根据目前参数推导出的方程"><a href="#根据目前参数推导出的方程" class="headerlink" title="根据目前参数推导出的方程"></a>根据目前参数推导出的方程</h5><p>$$<br>\begin{cases}<br>\frac{dS}{dt}=S_{in}-f-d_{sp}S+b_{sp}P\<br>\frac{dE}{dt}=E_{in}+f-εE-d_{eq}E\<br>\frac{dI}{dt}=I_{in}+εE-d_{ip}I\<br>\frac{dP}{dt}=d_{eq}E+d_{sp}S-b{sp}P-d_{pq}P\<br>\frac{dQ}{dt}=d_{pq}P+d_{iq}I-γQ<br>\end{cases}<br>$$</p>
+<h5 id="差分方程"><a href="#差分方程" class="headerlink" title="差分方程"></a>差分方程</h5><p>$$<br>\begin{cases}<br>S(t+1)=(1-d_{sp}-\beta (t))S(t)+b_{sp}P(t)+S_{in}(t)\<br>E(t+1)=(1-ε-d_{eq})E(t)-\beta (t)S(t)+E_{in}(t)\<br>I(t+1)=εE(t)+(1-d_{ip})I(t)+I_{in}(t)\<br>P(t+1)=d_{eq}E(t)+(1-b_{sp}-d_{pq})P(t)+d_{sp}S(t)\<br>Q(t+1)=d_{ip}I(t)+d_{pq}P(t)+(1-γ)Q(t)\<br>E(0)=I(0)=P(0)=Q(0)=R(0)\<br>\beta (t)=\frac{\beta_IU(N)(\frac{\beta_E}{\beta_I}E(t)+I(t))}{S(t)+E(t)+I(t)}<br>\end{cases}\<br>$$</p>
+<p>令$x(t)=(S(t)+E(t)+I(t)+P(t)+Q(t)+S_{in}(t)+E_{in}(t)+I_{in}(t))^{τ}$其中τ表示转置</p>
+<p>$A(\beta(t))=$<br>$$<br>\begin{matrix}<br>1-\beta(t)-d_{sp}&amp;0&amp;0&amp;b_{sp}&amp;0&amp;1&amp;0&amp;0\<br>\beta(t)&amp;1+ε+d_{eq}&amp;0&amp;0&amp;0&amp;0&amp;1&amp;0\<br>0&amp;ε&amp;0&amp;0&amp;0&amp;0&amp;0&amp;1\<br>d_{sp}&amp;d_{eq}&amp;0&amp;1-b_{sp}-d_{pq}&amp;0&amp;0&amp;0&amp;0\<br>0&amp;0&amp;d_{ip}&amp;d_{pq}&amp;1-γ&amp;0&amp;0&amp;0\<br>\end{matrix}<br>$$<br>故$x(t)=A(\beta(t))x(t)$</p>
+]]></content>
+  </entry>
+  <entry>
+    <title>DFT频域特性分析</title>
+    <url>/2020/04/23/DFT%E9%A2%91%E5%9F%9F%E7%89%B9%E6%80%A7%E5%88%86%E6%9E%90/</url>
+    <content><![CDATA[<p>离散傅里叶变换DFT是一种伪变换，是人为创造用于计算机进行数字信号处理的变换。DFT也是一种时域到频域的变换，能够表征信号的频域特性。本文将从循环卷积定理、频域采样定理和用DFT进行频谱三个方面分析DFT的频域特性。</p>
+<h4 id="循环卷积定理CCP"><a href="#循环卷积定理CCP" class="headerlink" title="循环卷积定理CCP"></a>循环卷积定理CCP</h4><h5 id="序列的循环位移"><a href="#序列的循环位移" class="headerlink" title="序列的循环位移"></a>序列的循环位移</h5><p>要了解DFT的循环卷积定理，首先要认识循环位移的概念：<br>设$x(n)$为有限长序列，长度为$N$，则$x(n)$的循环位移定义为<br>$$<br>y(n)=x((n+m))_N R_N (N)<br>$$</p>
+<p>通俗地讲就是将位移出序列主值区间的数补到序列末尾。</p>
+<p><img src="C:%5CUsers%5CLenovo%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200425172623444.png" alt="image-20200425172623444"></p>
+<h5 id="频域循环位移定理"><a href="#频域循环位移定理" class="headerlink" title="频域循环位移定理"></a>频域循环位移定理</h5><p>如果：<br>$$<br>X(k)=DFT[x(n)],0\leq k\leq N-1<br>\Y(k)=X((k+l))_N R_N(k)<br>$$<br>则：<br>$$<br>y(n)=IDTFT[Y(k)]=W^{nl}_Nx(n)<br>$$<br>也可以直接表示成：<br>$$<br>DFT[W^{nm}_Nx(n)]=X((k+m))_NR_N(k)<br>$$<br>可以看出频域循环位移定理实际上就是取DFS频域位移后的主值</p>
+<h6 id="证明过程："><a href="#证明过程：" class="headerlink" title="证明过程："></a>证明过程：</h6><p>$$<br>y(n)=IDFT[Y(k)]=\frac{1}{N}\sum_{k=0}^{N-1}Y(k)W_N^{-kn}\<br>=\frac{1}{N}\sum_{k=0}^{N-1}X((k+l))<em>NW_N^{-kn}\qquad\<br>\quad=W_N^{ln}\frac{1}{N}\sum</em>{k=0}^{N-1}X((k+l))_NW_N^{-(k+l)n}\<br>$$</p>
+<p>令$m=k+l$,则：<br>$$<br>y(n)=W_N^{ln}\frac{1}{N}\sum_{m=l}^{N-1}X((m))<em>NW_N^{-mn}\<br>\qquad\qquad\quad=W_N^{ln}\frac{1}{N}\sum</em>{m=0}^{N-1}X(m)W_N^{-mn}=W_N^{ln}x(n)<br>$$</p>
+<h5 id="循环卷积定理"><a href="#循环卷积定理" class="headerlink" title="循环卷积定理"></a>循环卷积定理</h5><p>DFT同样存在类似FT和ZT中时域相乘频域相卷的概念。由于DFT是DFS在时域和频域上取一个周期的伪变换，故循环卷积定理和时域/频域卷积定理略有不同，但推导思路类似。</p>
+<p>循环卷积定理：</p>
+<p>若：<br>$$<br>y_m(n)=h(n)\bigotimes x(n)\<br>$$<br>则：<br>$$<br>Y_m(k)=DFT[Y_m(n)]_L=H(k)X(k)\qquad k=0,1,2,…,L-1<br>$$<br>其中：<br>$$<br>H(k)=DFT[h(n)]_L,X(k)=DFT[x(n)]_L<br>$$</p>
+<h6 id="循环卷积的计算方法"><a href="#循环卷积的计算方法" class="headerlink" title="循环卷积的计算方法"></a>循环卷积的计算方法</h6><p>除了教材上利用矩阵求解的方法，也可以将序列放在圆周上求解循环卷积：</p>
+<p>设序列$x_1(n)$和$x_2(n)$，$y(n)=x_1(n)\bigotimes x_2(n)\quad n=1,2,3,…$ 。将序列$x_1(n)$按顺时针顺序放在外圆周，序列$x_2(n)$按逆时针顺序放在内圆周，将内圆周按顺时针顺序旋转可以求得$y(n)$。</p>
+<p><img src="C:%5CUsers%5CLenovo%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200426105125070.png" alt="image-20200426105125070"><br>$$<br>y(1)=x_1(1)x_2(1)+x_2(4)x_1(2)+x_2(3)x_1(3)+x_2(2)x_1(4)\<br>y(2)=x_1(1)x_2(2)+x_2(1)x_1(2)+x_2(4)x_1(3)+x_2(3)x_1(4)\<br>y(3)=x_2(3)x_1(1)+x_2(4)x_1(2)+x_2(1)x_1(3)+x_2(2)x_1(4)\<br>y(4)=x_2(4)x_1(1)+x_2(3)x_1(2)+x_2(2)x_1(3)+x_2(1)x_1(4)<br>$$</p>
+<h4 id="DFT的频域采样定理"><a href="#DFT的频域采样定理" class="headerlink" title="DFT的频域采样定理"></a>DFT的频域采样定理</h4><p>如果序列$x(n)$的长度为$M$，只有当频率采样点数$N\geqslant M$时，才有：<br>$$<br>x_N(n)=IDFT[X(k)]=x(n)<br>$$<br>即可由频域采样$X(k)$恢复原序列$x(n)$，否则产生时域混叠现象。</p>
+<p>通过频率采样得到的频域离散序列$x_N(k)$，再对$x_N(k)$进行IDFT得到的序列$x_N(n)$应是原序列以采样点数$N$为周期进行周期化后的主值序列。</p>
+]]></content>
+      <categories>
+        <category>数字信号处理</category>
+      </categories>
+      <tags>
+        <tag>匠</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>读书笔记：鼠疫（三）——医生</title>
+    <url>/2020/04/15/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0%EF%BC%9A%E9%BC%A0%E7%96%AB%EF%BC%88%E4%B8%89%EF%BC%89/</url>
+    <content><![CDATA[]]></content>
+      <categories>
+        <category>读书笔记</category>
+      </categories>
+      <tags>
+        <tag>匠</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>读书笔记：鼠疫（二）——科塔尔与方方</title>
+    <url>/2020/04/13/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0%EF%BC%9A%E9%BC%A0%E7%96%AB%EF%BC%88%E4%BA%8C%EF%BC%89/</url>
+    <content><![CDATA[]]></content>
+      <categories>
+        <category>读书笔记</category>
+      </categories>
+      <tags>
+        <tag>匠</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>查看被占用的端口</title>
+    <url>/2020/04/11/%E6%9F%A5%E7%9C%8B%E8%A2%AB%E5%8D%A0%E7%94%A8%E7%9A%84%E7%AB%AF%E5%8F%A3/</url>
+    <content><![CDATA[<p>在建设博客的过程中建立本地网页：</p>
+<blockquote>
+<p>hexo s </p>
+</blockquote>
+<p>此时在本机电脑上占用的默认端口为4000。在最初建立本地博客遇到过端口被占用的情况，我采用</p>
+<blockquote>
+<p>hexo s -p 5000</p>
+</blockquote>
+<p>的方法将端口改到5000运行本地网页</p>
+<p>在一开始建立博客的过程中由于一些误操作导致Node.js没有正常关闭导致端口被异常占用，迫使我用手动的方法杀死进程来释放端口。</p>
+<h2 id="查看端口的使用情况"><a href="#查看端口的使用情况" class="headerlink" title="查看端口的使用情况"></a>查看端口的使用情况</h2><p>呼出Windows系统的命令窗口，输入：</p>
+<blockquote>
+<p>netstat -ano</p>
+</blockquote>
+<a id="more"></a>
+
+<p>得到结果：</p>
+<p><img src="C:%5CUsers%5CLenovo%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200411110750664.png" alt="image-20200411110750664"></p>
+<p>其中本地地址的最后三位表示对应端口，外部地址表示远程计算机的IP地址和端口号，状态指当前的连接状态，PID在任务管理器中可以对应到具体进程。</p>
+<h5 id="几种状态的涵义："><a href="#几种状态的涵义：" class="headerlink" title="几种状态的涵义："></a>几种状态的涵义：</h5><p><strong><code>LISTENING</code></strong>时表示处于侦听状态，就是说该端口是开放的，等待连接，但还没有被连接。就像你房子的门已经敞开的，但还没有人进来。</p>
+<p><strong><code>ESTABLISHED</code></strong>的意思是建立连接。表示两台机器正在通信。</p>
+<p><strong><code>CLOSE_WAIT</code></strong> 对方主动关闭连接或者网络 异常导致连接中断</p>
+<p><strong><code>TIME_WAIT</code></strong>我方主动调用close()断开连接，收到对方确认</p>
+<p>而端口被占用的情况就是指<strong><code>ESTABLISHED</code></strong>的状态</p>
+<h5 id="通过PID找到进程："><a href="#通过PID找到进程：" class="headerlink" title="通过PID找到进程："></a>通过PID找到进程：</h5><p>在命令窗口找到我们寻找的端口对应的PID码，在任务管理器的服务中对应到进程后，就可以杀死它释放端口了</p>
+<p><img src="C:%5CUsers%5CLenovo%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200411151255073.png" alt="image-20200411151255073"></p>
+<p>如果要查询已知的端口占用情况，我们也可以在命令窗口直接输入：</p>
+<blockquote>
+<p>netstat -aon|findstr “XXXX” </p>
+</blockquote>
+<p>查询到PID后继续输入：</p>
+<blockquote>
+<p>tasklist|findstr “XXXX”</p>
+</blockquote>
+<p>即可查询到当前PID对应的进程，继续输入：</p>
+<blockquote>
+<p>taskkill /f /t /im XXXX.exe</p>
+</blockquote>
+<p>即可杀死进程</p>
+]]></content>
+      <categories>
+        <category>计算机网络</category>
+      </categories>
+      <tags>
+        <tag>思维碎片</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>读书笔记：鼠疫（一）——关于市民和他们的死亡</title>
+    <url>/2020/04/11/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0%EF%BC%9A%E9%BC%A0%E7%96%AB%EF%BC%88%E4%B8%80%EF%BC%89/</url>
+    <content><![CDATA[<p>加缪的文字就像我十八岁之后空白的记忆，是我思维中的一片阴影。思考地愈深入，这片阴影就变得愈加难以琢磨。</p>
+<p>疫情造就的长达三个月的寒假，我只读了两本书，一本《局外人》，一本《鼠疫》。《局外人》对我造成了极大的冲击，想写的东西很多，但是不知道从哪里下笔。趁着疫情余温未过，就先写写《鼠疫》。</p>
+<h3 id="一座丑陋的、平静的、无聊的城市"><a href="#一座丑陋的、平静的、无聊的城市" class="headerlink" title="一座丑陋的、平静的、无聊的城市"></a>一座丑陋的、平静的、无聊的城市</h3><p>很遗憾的，开篇描述的城市让我想到了我热爱的家乡：</p>
+<p><em><code>春天意味着有大量的新鲜空气，或是小贩从郊外运来的一篮篮鲜花。这里的春天是在市场上出售的。</code></em></p>
+<p>一座现代化的城市，工作、恋爱、死亡都是以大致相似的方式进行着的，都带着同样狂热而漫不经心的态度。</p>
+<p><em><code>一座完全现代化的城市，就是一座不带有任何幻想的城市。人们从早忙到晚，然后把剩下的时间消磨在纸牌，咖啡和闲谈上；男人和女人，不是在后悔他们所谓的“爱的契约”而火速离婚，就是随着时间的消逝，渐渐安于两个人的夫妻生活；极端的气候、忙碌的生意、短暂的黄昏、恶劣的环境、对生活的幸福追求等，都需要一个健康的身体来适应。所以一个垂死之人在这里会感到相当的孤独。</code></em></p>
+<p>作者轻描淡写地叙述这些事情，显得他们很自然似的城市现代化或许就是边缘的人物越来越多直至占据大多数（奥兰城是地处非洲的移民城市，所以无论从城市内部或者宏观角度，这个说法都说得通），令资源的天平倾斜，令出生成长和死亡同质化，而很遗憾的（竟然是很遗憾的），这个世界是围绕着大多数人旋转的，所以这种转变同时也是不可挽救的。</p>
+<p><img src="C:%5CUsers%5CLenovo%5CDesktop%5CQQ%E5%9B%BE%E7%89%8720200415202541.jpg" alt="QQ图片20200415202541"></p>
+<h3 id="一群清醒的、犹豫的、敏感的医生"><a href="#一群清醒的、犹豫的、敏感的医生" class="headerlink" title="一群清醒的、犹豫的、敏感的医生"></a>一群清醒的、犹豫的、敏感的医生</h3><p><strong><code>“人类从历史中学到的唯一教训，就是人类无法从历史中学到任何教训”</code></strong>——黑格尔</p>
+<p>这句话说得仿佛人类毫无主观能动性一般。但事实是每一个时代都有它特殊的环境，都具有一些个别的情况，使它的举动行事，不得不全由自己来考虑、自己来决定。当重大事变纷呈交迫的时候，一般的笼统的法则毫无裨益。回忆过去同样的情形，也是徒劳无功。一个灰色的回忆不能抗衡“现在”的生动和自由。</p>
+<p>很遗憾地，鼠疫并不是第一次发生，瘟疫来访的次数也不可考，而人们没有任何新的花样来应对这些悲剧。</p>
+<p>自第一个病例到封城为止，里厄医生的病人被详细描述：</p>
+<p><em><code>病人的四肢竭力向外张开，切口处血流不止，病人的腹部还是出现了黑斑，腿上是淋巴结停止化脓后又重新肿了起来。大多数时候，病人通常在腐败的恶臭中死去。</code></em></p>
+<p><em><code>一个老病人的邻居手按着腹股沟，边呕吐边说胡话。他身上的淋巴结肿得比守门人还要厉害。有一处已经开始化脓，裂开了，就像因熟透而裂开的水果。</code></em></p>
+<p>但是整个群体的反应可以说是一则预言：</p>
+<p><em><code>“……我对此也无能为力。这样的命令只能由省里发布。另外，是谁告诉您这种病有传染危险？”</code></em></p>
+<p><em><code>“显然，您已经知道这是什么病了。”</code></em></p>
+<p><em><code>“我还在等待分析结果。”</code></em></p>
+<p><em><code>“我知道，而且我不需要分析……”</code></em></p>
+<p><em><code>“……这简直难以置信。但一切都证明这就是鼠疫。”</code></em></p>
+<p><em><code>“……但我还是需要你们这些专家的正式确认，这是否是一次鼠疫。”</code></em></p>
+<p><em><code>“您可以确定这就是鼠疫吗？”</code></em></p>
+<p><em><code>“您这个问题问的不对。这不是用词上的问题，这可关系到时间啊。”</code></em></p>
+<p><em><code>“您的看法，我是这样理解的，即使这不是鼠疫，预防鼠疫的措施也必须开展起来。”</code></em></p>
+<p><em><code>“如果一定要我说出个观点，正是这个。”</code></em></p>
+<p>一线的工作者，往往是在灾难爆发之前的鸣哨人。遗憾的是他们除了日复一日的勤恳工作，提供准确的灾难预警、展现充分的、毋庸置疑的证据之外，还要注意自己的鸣哨的方式。</p>
+<p>人们总是倾向于怀疑自己不希望发生的事。人人都知道灾难和战争会反反复复出现，但当它们落到自己头上时，他们很难相信这就是灾难。历史上瘟疫不是第一次发生，而每一次身处瘟疫其中的人同样也会感到惊讶。</p>
+<p>瘟疫和战争都是愚蠢的事，而瘟疫和战争还在日日夜夜地存在下去。蠢事总是存在，如果人们能不总是只考虑自己就能意识到这一点。虽然如此，我们绝不能说这些可怜的，惊讶的人愚蠢，他们是真正的人道主义者，他们敏感、天真，对所有的一切抱有盲目的自信。</p>
+<p>人道主义者们会说：“这太蠢了，仗打不了多久的。”</p>
+<p>但是战争会一直持续下去。</p>
+<h2 id="天真的、敏感的、盲目的人道主义者"><a href="#天真的、敏感的、盲目的人道主义者" class="headerlink" title="天真的、敏感的、盲目的人道主义者"></a>天真的、敏感的、盲目的人道主义者</h2>]]></content>
+      <categories>
+        <category>读书笔记</category>
+      </categories>
+      <tags>
+        <tag>匠</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Hosts文件</title>
     <url>/2020/04/09/Hosts%E6%96%87%E4%BB%B6/</url>
     <content><![CDATA[<p>越来越长时间地游走在国外的网页中，曾经使用过VPN的我现在竟然觉得缺少梯子在互联网的世界寸步难行（原来的梯子在2019年国庆由于众所周知的原因失效了……）。然而家境贫穷迫于无奈退而求其次采用了修改hosts文件的方式，在一定程度上提升访问国外服务器的速度。</p>

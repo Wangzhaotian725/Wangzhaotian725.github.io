@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+
+
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Mist","version":"7.7.2","exturl":false,"sidebar":{"position":"left","display":"hide","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+  <meta name="description" content="目前已经成功建立的模型：图示： 模型中的变量：t：时间变量，单位为day S：自由行动的易感人群，对该病毒没有抗体，接触传染期人群可能被传染； E：自由行动的潜伏人群，被感染后处于潜伏期的人群，无相关患病症状； I： 自由行动的感染人群，代表潜伏期之后已具有传染性的人群； R：移除人群，治愈并获得免疫，既不能传染他人也不能被传染； P：与患者的密切接触人群，包括潜伏人群和易感人群，他们已被隔离诊断">
+<meta property="og:type" content="article">
+<meta property="og:title" content="目前已经成功建立的模型：">
+<meta property="og:url" content="http://yoursite.com/2020/05/15/%E7%9B%AE%E5%89%8D%E5%B7%B2%E7%BB%8F%E6%88%90%E5%8A%9F%E5%BB%BA%E7%AB%8B%E7%9A%84%E6%A8%A1%E5%9E%8B%EF%BC%9A/index.html">
+<meta property="og:site_name" content="明天才有空">
+<meta property="og:description" content="目前已经成功建立的模型：图示： 模型中的变量：t：时间变量，单位为day S：自由行动的易感人群，对该病毒没有抗体，接触传染期人群可能被传染； E：自由行动的潜伏人群，被感染后处于潜伏期的人群，无相关患病症状； I： 自由行动的感染人群，代表潜伏期之后已具有传染性的人群； R：移除人群，治愈并获得免疫，既不能传染他人也不能被传染； P：与患者的密切接触人群，包括潜伏人群和易感人群，他们已被隔离诊断">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="c:%5CUsers%5CLenovo%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200516171014636.png">
+<meta property="article:published_time" content="2020-05-15T08:25:08.543Z">
+<meta property="article:modified_time" content="2020-05-16T15:37:40.566Z">
+<meta property="article:author" content="曌天">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="c:%5CUsers%5CLenovo%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200516171014636.png">
+
+<link rel="canonical" href="http://yoursite.com/2020/05/15/%E7%9B%AE%E5%89%8D%E5%B7%B2%E7%BB%8F%E6%88%90%E5%8A%9F%E5%BB%BA%E7%AB%8B%E7%9A%84%E6%A8%A1%E5%9E%8B%EF%BC%9A/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>目前已经成功建立的模型： | 明天才有空</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">明天才有空</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">武曌的博客</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-fw fa-user"></i>关于</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/05/15/%E7%9B%AE%E5%89%8D%E5%B7%B2%E7%BB%8F%E6%88%90%E5%8A%9F%E5%BB%BA%E7%AB%8B%E7%9A%84%E6%A8%A1%E5%9E%8B%EF%BC%9A/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="曌天">
+      <meta itemprop="description" content="I can read the ingredient on a gum wrapper and unlock the secrets of the universe.">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="明天才有空">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          目前已经成功建立的模型：
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-05-15 16:25:08" itemprop="dateCreated datePublished" datetime="2020-05-15T16:25:08+08:00">2020-05-15</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-05-16 23:37:40" itemprop="dateModified" datetime="2020-05-16T23:37:40+08:00">2020-05-16</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h4 id="目前已经成功建立的模型："><a href="#目前已经成功建立的模型：" class="headerlink" title="目前已经成功建立的模型："></a>目前已经成功建立的模型：</h4><h5 id="图示："><a href="#图示：" class="headerlink" title="图示："></a>图示：</h5><p><img src="C:%5CUsers%5CLenovo%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200516171014636.png" alt="image-20200516171014636"></p>
+<h5 id="模型中的变量："><a href="#模型中的变量：" class="headerlink" title="模型中的变量："></a>模型中的变量：</h5><p>t：时间变量，单位为day</p>
+<p>S：自由行动的易感人群，对该病毒没有抗体，接触传染期人群可能被传染；</p>
+<p>E：自由行动的潜伏人群，被感染后处于潜伏期的人群，无相关患病症状；</p>
+<p>I： 自由行动的感染人群，代表潜伏期之后已具有传染性的人群；</p>
+<p>R：移除人群，治愈并获得免疫，既不能传染他人也不能被传染；</p>
+<p>P：与患者的密切接触人群，包括潜伏人群和易感人群，他们已被隔离诊断治疗；</p>
+<p>$S_{in}$：易感者输入速率的时间函数；</p>
+<p>$E_{in}$</p>
+<p>$I_{in}$</p>
+<p>Q：确诊人群，不具有自由活动能力的病人；</p>
+<p>$N’$：某批次返校人数；</p>
+<p>$S_{in}$：某批次返校人数中关于易感者人数的函数；</p>
+<p>$E_{in}$：某批次返校人数中关于潜伏者人数的函数，</p>
+<p>$I_{in}$：</p>
+<p>$f$：疾病发生率，单位时间内被所有自由行动的易感和潜伏人群感染的自由行动易感人群：</p>
+<p>$$f=\frac{β_IU(N)}{N(t)}(\frac{β_E}{β_I}E(t)+I(t))$$</p>
+<p>其中：</p>
+<p>U(N)：接触率，即单位时间内病人与他人接触的次数 U(N)=kN 其中k为常系数 ，$k$与$k_1$在学校隔离干预措施极低时可视为相等</p>
+<p>暂定为500，k=0.01563</p>
+<p>N(t)：当前时间的总人数</p>
+<p>$β_I$：感染者的传染率系数——受到学校日常干预措施强度影响</p>
+<p>$β_E$：潜伏者的传染率系数——受到学校日常干预措施强度影响</p>
+<p>ε：潜伏者转换为感染者的概率，$k_1$反应学校的隔离干预措施应对强度</p>
+<p>$$ε=\frac{1}{平均潜伏天数}（1-k_1)=0.14062(原始状态)$$</p>
+<p>潜伏期为3~7天，最长不超过14天，我们取5天作为平均潜伏天数</p>
+<p>$γ$：移出率系数，反应单位时间内收治病人康复的速率系数</p>
+<p>$γ=\frac{1}{病程天数}=0.05882$</p>
+<p>病程天数17天</p>
+<p>$d_{iq}$：学校对自由自由患病人群的反应速度速率</p>
+<p>$d_{iq}=\frac{1}{在明显症状下发现并被隔离的天数}=0.05882（初始状态）$</p>
+<p>$d_{pq}$：隔离转阳率系数</p>
+<p>$d_{pq}=\frac{1}{在隔离情况下出现症状并被收治的天数}(1-\frac{P_s}{P(t)})=0.14286·（1-0.6341）=0.05219$</p>
+<p>隔离情况下出现病症的天数为7天</p>
+<p>$d_{sp}$：被隔离的易感者在总易感者中的比例，$k_1$反应学校的隔离干预措施应对强度</p>
+<p>$d_{sp}=k_1$=0.01563（初始状态）</p>
+<p>$b_{sp}$：反应易感者回到自由空间的速率系数</p>
+<p>$b_{sp}=\frac{P_S}{P(t)}(\frac{1}{观察天数})$=0.6341·0.07143=0.04529</p>
+<p>$d_{eq}$：被隔离的潜伏者在总潜伏者中的比例，$k_1$反应学校的隔离干预措施应对强度</p>
+<p>$d_{eq}=k_1$=0.01563（初始状态）</p>
+<h5 id="根据目前参数推导出的方程"><a href="#根据目前参数推导出的方程" class="headerlink" title="根据目前参数推导出的方程"></a>根据目前参数推导出的方程</h5><p>$$<br>\begin{cases}<br>\frac{dS}{dt}=S_{in}-f-d_{sp}S+b_{sp}P\<br>\frac{dE}{dt}=E_{in}+f-εE-d_{eq}E\<br>\frac{dI}{dt}=I_{in}+εE-d_{ip}I\<br>\frac{dP}{dt}=d_{eq}E+d_{sp}S-b{sp}P-d_{pq}P\<br>\frac{dQ}{dt}=d_{pq}P+d_{iq}I-γQ<br>\end{cases}<br>$$</p>
+<h5 id="差分方程"><a href="#差分方程" class="headerlink" title="差分方程"></a>差分方程</h5><p>$$<br>\begin{cases}<br>S(t+1)=(1-d_{sp}-\beta (t))S(t)+b_{sp}P(t)+S_{in}(t)\<br>E(t+1)=(1-ε-d_{eq})E(t)-\beta (t)S(t)+E_{in}(t)\<br>I(t+1)=εE(t)+(1-d_{ip})I(t)+I_{in}(t)\<br>P(t+1)=d_{eq}E(t)+(1-b_{sp}-d_{pq})P(t)+d_{sp}S(t)\<br>Q(t+1)=d_{ip}I(t)+d_{pq}P(t)+(1-γ)Q(t)\<br>E(0)=I(0)=P(0)=Q(0)=R(0)\<br>\beta (t)=\frac{\beta_IU(N)(\frac{\beta_E}{\beta_I}E(t)+I(t))}{S(t)+E(t)+I(t)}<br>\end{cases}\<br>$$</p>
+<p>令$x(t)=(S(t)+E(t)+I(t)+P(t)+Q(t)+S_{in}(t)+E_{in}(t)+I_{in}(t))^{τ}$其中τ表示转置</p>
+<p>$A(\beta(t))=$<br>$$<br>\begin{matrix}<br>1-\beta(t)-d_{sp}&amp;0&amp;0&amp;b_{sp}&amp;0&amp;1&amp;0&amp;0\<br>\beta(t)&amp;1+ε+d_{eq}&amp;0&amp;0&amp;0&amp;0&amp;1&amp;0\<br>0&amp;ε&amp;0&amp;0&amp;0&amp;0&amp;0&amp;1\<br>d_{sp}&amp;d_{eq}&amp;0&amp;1-b_{sp}-d_{pq}&amp;0&amp;0&amp;0&amp;0\<br>0&amp;0&amp;d_{ip}&amp;d_{pq}&amp;1-γ&amp;0&amp;0&amp;0\<br>\end{matrix}<br>$$<br>故$x(t)=A(\beta(t))x(t)$</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/04/23/DFT%E9%A2%91%E5%9F%9F%E7%89%B9%E6%80%A7%E5%88%86%E6%9E%90/" rel="prev" title="DFT频域特性分析">
+      <i class="fa fa-chevron-left"></i> DFT频域特性分析
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/07/16/%E5%B7%A6%E8%84%91%E7%AC%94%E8%AE%B0%EF%BC%9AWhat-is-inter-cultural-communication/" rel="next" title="左脑笔记：What is inter-cultural communication?">
+      左脑笔记：What is inter-cultural communication? <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#目前已经成功建立的模型："><span class="nav-number">1.</span> <span class="nav-text">目前已经成功建立的模型：</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#图示："><span class="nav-number">1.1.</span> <span class="nav-text">图示：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#模型中的变量："><span class="nav-number">1.2.</span> <span class="nav-text">模型中的变量：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#根据目前参数推导出的方程"><span class="nav-number">1.3.</span> <span class="nav-text">根据目前参数推导出的方程</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#差分方程"><span class="nav-number">1.4.</span> <span class="nav-text">差分方程</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">曌天</p>
+  <div class="site-description" itemprop="description">I can read the ingredient on a gum wrapper and unlock the secrets of the universe.</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">23</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/Wangzhaotian725" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;Wangzhaotian725" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">曌天</span>
+</div>
+
+<div class="theme-info">
+  <div class="power-by"></div>
+  <span class="post-count">博客全站共11.8k字</span>
+</div>
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

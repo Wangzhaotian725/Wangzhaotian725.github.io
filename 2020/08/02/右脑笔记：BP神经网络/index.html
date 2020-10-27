@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+
+
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Mist","version":"7.7.2","exturl":false,"sidebar":{"position":"left","display":"hide","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+  <meta name="description" content="人工神经元模型单个神经元1234567graph LRx1--权重w1--&gt;当前神经元当前神经元--&gt;阈值阈值--&gt;输出x2--w2--&gt;当前神经元x3--w3--&gt;当前神经元x4--w4--&gt;当前神经元  神经网络123graph LR输入层--&gt;隐含层隐含层--&gt;输出层  权重可以通过训练得到，但网络结构需要人为设置。 神经元之间的连接形式前向网">
+<meta property="og:type" content="article">
+<meta property="og:title" content="右脑笔记：BP神经网络">
+<meta property="og:url" content="http://yoursite.com/2020/08/02/%E5%8F%B3%E8%84%91%E7%AC%94%E8%AE%B0%EF%BC%9ABP%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/index.html">
+<meta property="og:site_name" content="明天才有空">
+<meta property="og:description" content="人工神经元模型单个神经元1234567graph LRx1--权重w1--&gt;当前神经元当前神经元--&gt;阈值阈值--&gt;输出x2--w2--&gt;当前神经元x3--w3--&gt;当前神经元x4--w4--&gt;当前神经元  神经网络123graph LR输入层--&gt;隐含层隐含层--&gt;输出层  权重可以通过训练得到，但网络结构需要人为设置。 神经元之间的连接形式前向网">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-08-02T01:10:08.440Z">
+<meta property="article:modified_time" content="2020-08-02T01:10:08.612Z">
+<meta property="article:author" content="曌天">
+<meta property="article:tag" content="培训笔记人工">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://yoursite.com/2020/08/02/%E5%8F%B3%E8%84%91%E7%AC%94%E8%AE%B0%EF%BC%9ABP%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>右脑笔记：BP神经网络 | 明天才有空</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">明天才有空</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">武曌的博客</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-fw fa-user"></i>关于</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/08/02/%E5%8F%B3%E8%84%91%E7%AC%94%E8%AE%B0%EF%BC%9ABP%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="曌天">
+      <meta itemprop="description" content="I can read the ingredient on a gum wrapper and unlock the secrets of the universe.">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="明天才有空">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          右脑笔记：BP神经网络
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-08-02 09:10:08" itemprop="dateCreated datePublished" datetime="2020-08-02T09:10:08+08:00">2020-08-02</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%95%B0%E5%AD%A6%E5%BB%BA%E6%A8%A1/" itemprop="url" rel="index"><span itemprop="name">数学建模</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h4 id="人工神经元模型"><a href="#人工神经元模型" class="headerlink" title="人工神经元模型"></a>人工神经元模型</h4><h5 id="单个神经元"><a href="#单个神经元" class="headerlink" title="单个神经元"></a>单个神经元</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">graph LR</span><br><span class="line">x1--权重w1--&gt;当前神经元</span><br><span class="line">当前神经元--&gt;阈值</span><br><span class="line">阈值--&gt;输出</span><br><span class="line">x2--w2--&gt;当前神经元</span><br><span class="line">x3--w3--&gt;当前神经元</span><br><span class="line">x4--w4--&gt;当前神经元</span><br></pre></td></tr></table></figure>
+
+<h5 id="神经网络"><a href="#神经网络" class="headerlink" title="神经网络"></a>神经网络</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">graph LR</span><br><span class="line">输入层--&gt;隐含层</span><br><span class="line">隐含层--&gt;输出层</span><br></pre></td></tr></table></figure>
+
+<p>权重可以通过训练得到，但网络结构需要人为设置。</p>
+<h4 id="神经元之间的连接形式"><a href="#神经元之间的连接形式" class="headerlink" title="神经元之间的连接形式"></a>神经元之间的连接形式</h4><h5 id="前向网络"><a href="#前向网络" class="headerlink" title="前向网络"></a>前向网络</h5><p>有向无环图</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">graph TD</span><br><span class="line">输入节点1--&gt;隐层1</span><br><span class="line">输入节点1--&gt;隐层2</span><br><span class="line">隐层1--&gt;输出层1</span><br><span class="line">隐层2--&gt;输出层1</span><br><span class="line">隐层2--&gt;输出层2</span><br><span class="line">输入节点2--&gt;隐层1</span><br><span class="line">输入节点2--&gt;隐层3</span><br><span class="line">输入节点3--&gt;隐层3</span><br><span class="line">隐层3--&gt;输出层2</span><br><span class="line">输入节点4--&gt;隐层3</span><br></pre></td></tr></table></figure>
+
+<p>单个神经元的输出都相等。</p>
+<h5 id="反馈网络"><a href="#反馈网络" class="headerlink" title="反馈网络"></a>反馈网络</h5><p>反馈网络可以表示成无向图。</p>
+<h4 id="激活函数"><a href="#激活函数" class="headerlink" title="激活函数"></a>激活函数</h4><h5 id="阈值函数"><a href="#阈值函数" class="headerlink" title="阈值函数"></a>阈值函数</h5><p>阶跃函数。当激活函数采用阶跃函数时，人工神经网络模型为MP模型。输出结果只有0或1.</p>
+<h5 id="线性函数"><a href="#线性函数" class="headerlink" title="线性函数"></a>线性函数</h5><p>输出结果为任意值，网络收敛性差。</p>
+<h5 id="对数S形函数"><a href="#对数S形函数" class="headerlink" title="对数S形函数"></a><em>对数S形函数</em></h5><p>输出介于0~1之间。</p>
+<h5 id="双曲正切S形函数"><a href="#双曲正切S形函数" class="headerlink" title="双曲正切S形函数"></a>双曲正切S形函数</h5><p>输出介于-1~1之间。</p>
+<h4 id="神经网络的学习方式"><a href="#神经网络的学习方式" class="headerlink" title="神经网络的学习方式"></a>神经网络的学习方式</h4><p>神经网络的学习就是改变权值矩阵的过程。其网络能通过它的神经元权值和阈值的不断调整从环境中进行学习，直到输出误差达到预期结果。</p>
+<h5 id="神经网络的学习规则"><a href="#神经网络的学习规则" class="headerlink" title="神经网络的学习规则"></a>神经网络的学习规则</h5><h6 id="误差修正型规则"><a href="#误差修正型规则" class="headerlink" title="误差修正型规则"></a><em>误差修正型规则</em></h6><p>一种有监督的学习方法，根据实际输出和期望输出的误差进行网络连接权值的修正。</p>
+<h6 id="竞争型规则"><a href="#竞争型规则" class="headerlink" title="竞争型规则"></a>竞争型规则</h6><p>无监督学习过程 ，仅根据提供的学习样本进行自组织学习，没有期望输出。</p>
+<h6 id="Hebb型规则"><a href="#Hebb型规则" class="headerlink" title="Hebb型规则"></a>Hebb型规则</h6><p>利用神经元之间的活化值来反映它们之间连接性性的变化。</p>
+<h6 id="随机型学习规则"><a href="#随机型学习规则" class="headerlink" title="随机型学习规则"></a>随机型学习规则</h6><p>在学习过程中根据目标函数（网络输出均方差）的变化调整网络参数。</p>
+<h4 id="BP神经网络"><a href="#BP神经网络" class="headerlink" title="BP神经网络"></a>BP神经网络</h4><p>反向传播模型。</p>
+<p>基本思想：学习过程由信号的正向传播与误差的反向传播两个过程组成。</p>
+<p>误差的反向传播是将输出误差以某种形式通过隐层逐层反传，将误差分摊给各层的所有单元，从而获得各层单元的误差信号，作为修正各单元权值的依据。</p>
+<h5 id="BP算法的学习过程"><a href="#BP算法的学习过程" class="headerlink" title="BP算法的学习过程"></a>BP算法的学习过程</h5><ol>
+<li><p>选择一组训练样例</p>
+</li>
+<li><p>从训练样级</p>
+</li>
+<li></li>
+<li><p>计算网络的实际输出和期望输出的误差</p>
+</li>
+<li><p>从输出层反向计算到第一个隐层，按梯度下降法使误差向减小方向发展。</p>
+</li>
+<li></li>
+</ol>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E5%9F%B9%E8%AE%AD%E7%AC%94%E8%AE%B0%E4%BA%BA%E5%B7%A5/" rel="tag"># 培训笔记人工</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/07/29/%E5%8F%B3%E8%84%91%E7%AC%94%E8%AE%B0%EF%BC%9A%E5%BE%AE%E5%88%86%E6%96%B9%E7%A8%8B/" rel="prev" title="右脑笔记：微分方程">
+      <i class="fa fa-chevron-left"></i> 右脑笔记：微分方程
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#人工神经元模型"><span class="nav-number">1.</span> <span class="nav-text">人工神经元模型</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#单个神经元"><span class="nav-number">1.1.</span> <span class="nav-text">单个神经元</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#神经网络"><span class="nav-number">1.2.</span> <span class="nav-text">神经网络</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#神经元之间的连接形式"><span class="nav-number">2.</span> <span class="nav-text">神经元之间的连接形式</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#前向网络"><span class="nav-number">2.1.</span> <span class="nav-text">前向网络</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#反馈网络"><span class="nav-number">2.2.</span> <span class="nav-text">反馈网络</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#激活函数"><span class="nav-number">3.</span> <span class="nav-text">激活函数</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#阈值函数"><span class="nav-number">3.1.</span> <span class="nav-text">阈值函数</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#线性函数"><span class="nav-number">3.2.</span> <span class="nav-text">线性函数</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#对数S形函数"><span class="nav-number">3.3.</span> <span class="nav-text">对数S形函数</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#双曲正切S形函数"><span class="nav-number">3.4.</span> <span class="nav-text">双曲正切S形函数</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#神经网络的学习方式"><span class="nav-number">4.</span> <span class="nav-text">神经网络的学习方式</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#神经网络的学习规则"><span class="nav-number">4.1.</span> <span class="nav-text">神经网络的学习规则</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#误差修正型规则"><span class="nav-number">4.1.1.</span> <span class="nav-text">误差修正型规则</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#竞争型规则"><span class="nav-number">4.1.2.</span> <span class="nav-text">竞争型规则</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#Hebb型规则"><span class="nav-number">4.1.3.</span> <span class="nav-text">Hebb型规则</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#随机型学习规则"><span class="nav-number">4.1.4.</span> <span class="nav-text">随机型学习规则</span></a></li></ol></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#BP神经网络"><span class="nav-number">5.</span> <span class="nav-text">BP神经网络</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#BP算法的学习过程"><span class="nav-number">5.1.</span> <span class="nav-text">BP算法的学习过程</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">曌天</p>
+  <div class="site-description" itemprop="description">I can read the ingredient on a gum wrapper and unlock the secrets of the universe.</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">23</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/Wangzhaotian725" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;Wangzhaotian725" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">曌天</span>
+</div>
+
+<div class="theme-info">
+  <div class="power-by"></div>
+  <span class="post-count">博客全站共11.8k字</span>
+</div>
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+
+
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Mist","version":"7.7.2","exturl":false,"sidebar":{"position":"left","display":"hide","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+  <meta name="description" content="问题的识题与分析 建模的目的是什么？ 需要解决的问题是什么？核心问题是什么？ 问题的关键词是什么？ 解决问题的思路是什么？ 问题有什么特点、限制条件？ 从条件和数据可以得到什么信息？ 数据的来源是否可靠？ 所给条件和数据有什么意义和作用？ 哪些条件是本质的？ 哪些条件中可变动？ 是否需要适当补充一些条件和数据？  数学模型的建立方法给出合理假设 关于是否关于包含某些因素的假设 关于条件相对强弱的假">
+<meta property="og:type" content="article">
+<meta property="og:title" content="右脑笔记：数学建模的实践方法">
+<meta property="og:url" content="http://yoursite.com/2020/07/17/%E5%8F%B3%E8%84%91%E7%AC%94%E8%AE%B0%EF%BC%9A%E6%95%B0%E5%AD%A6%E5%BB%BA%E6%A8%A1%E7%9A%84%E5%AE%9E%E8%B7%B5%E6%96%B9%E6%B3%95/index.html">
+<meta property="og:site_name" content="明天才有空">
+<meta property="og:description" content="问题的识题与分析 建模的目的是什么？ 需要解决的问题是什么？核心问题是什么？ 问题的关键词是什么？ 解决问题的思路是什么？ 问题有什么特点、限制条件？ 从条件和数据可以得到什么信息？ 数据的来源是否可靠？ 所给条件和数据有什么意义和作用？ 哪些条件是本质的？ 哪些条件中可变动？ 是否需要适当补充一些条件和数据？  数学模型的建立方法给出合理假设 关于是否关于包含某些因素的假设 关于条件相对强弱的假">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="c:%5CUsers%5CLenovo%5CDesktop%5Cimage-20200717101524263.png">
+<meta property="article:published_time" content="2020-07-17T03:06:47.885Z">
+<meta property="article:modified_time" content="2020-07-17T03:06:48.127Z">
+<meta property="article:author" content="曌天">
+<meta property="article:tag" content="培训笔记">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="c:%5CUsers%5CLenovo%5CDesktop%5Cimage-20200717101524263.png">
+
+<link rel="canonical" href="http://yoursite.com/2020/07/17/%E5%8F%B3%E8%84%91%E7%AC%94%E8%AE%B0%EF%BC%9A%E6%95%B0%E5%AD%A6%E5%BB%BA%E6%A8%A1%E7%9A%84%E5%AE%9E%E8%B7%B5%E6%96%B9%E6%B3%95/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>右脑笔记：数学建模的实践方法 | 明天才有空</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">明天才有空</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">武曌的博客</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-fw fa-user"></i>关于</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/07/17/%E5%8F%B3%E8%84%91%E7%AC%94%E8%AE%B0%EF%BC%9A%E6%95%B0%E5%AD%A6%E5%BB%BA%E6%A8%A1%E7%9A%84%E5%AE%9E%E8%B7%B5%E6%96%B9%E6%B3%95/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="曌天">
+      <meta itemprop="description" content="I can read the ingredient on a gum wrapper and unlock the secrets of the universe.">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="明天才有空">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          右脑笔记：数学建模的实践方法
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-07-17 11:06:47 / 修改时间：11:06:48" itemprop="dateCreated datePublished" datetime="2020-07-17T11:06:47+08:00">2020-07-17</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%95%B0%E5%AD%A6%E5%BB%BA%E6%A8%A1/" itemprop="url" rel="index"><span itemprop="name">数学建模</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h5 id="问题的识题与分析"><a href="#问题的识题与分析" class="headerlink" title="问题的识题与分析"></a>问题的识题与分析</h5><ol>
+<li>建模的目的是什么？</li>
+<li>需要解决的问题是什么？核心问题是什么？</li>
+<li>问题的关键词是什么？</li>
+<li>解决问题的思路是什么？</li>
+<li>问题有什么特点、限制条件？</li>
+<li>从条件和数据可以得到什么信息？</li>
+<li>数据的来源是否可靠？</li>
+<li>所给条件和数据有什么意义和作用？</li>
+<li>哪些条件是本质的？</li>
+<li>哪些条件中可变动？</li>
+<li>是否需要适当补充一些条件和数据？</li>
+</ol>
+<h5 id="数学模型的建立方法"><a href="#数学模型的建立方法" class="headerlink" title="数学模型的建立方法"></a>数学模型的建立方法</h5><h6 id="给出合理假设"><a href="#给出合理假设" class="headerlink" title="给出合理假设"></a>给出<em>合理</em>假设</h6><ol>
+<li>关于是否关于包含某些因素的假设</li>
+<li>关于条件相对强弱的假设</li>
+<li>关于各因素影响相对大小的假设</li>
+<li>关于模型适用范围的假设</li>
+</ol>
+<h6 id="模型的求解方法"><a href="#模型的求解方法" class="headerlink" title="模型的求解方法"></a>模型的求解方法</h6><ol>
+<li>尽量使用自己熟悉的方法</li>
+<li>用解析方法或数值方法</li>
+<li>使用工具软件说明使用原理和程序，避免黑箱操作</li>
+<li>注意问题的针对性和适用性</li>
+</ol>
+<h6 id="模型解的分析和检验方法"><a href="#模型解的分析和检验方法" class="headerlink" title="模型解的分析和检验方法"></a>模型解的分析和检验方法</h6><p>误差分析：</p>
+<ol>
+<li>建模假设产生的误差</li>
+<li>近似求解方法产生的误差</li>
+<li>计算机产生的舍入误差</li>
+<li>测量或实验数据产生的误差</li>
+</ol>
+<p>模型结果分析：</p>
+<ol>
+<li>分析求解结果是否满足实际问题的需求</li>
+<li>如有偏差，分析其原因，假设或模型，还是求解方法？</li>
+</ol>
+<h5 id="模型解的分析和检验方法-1"><a href="#模型解的分析和检验方法-1" class="headerlink" title="模型解的分析和检验方法"></a>模型解的分析和检验方法</h5><h6 id="灵敏度分析："><a href="#灵敏度分析：" class="headerlink" title="灵敏度分析："></a>灵敏度分析：</h6><ol>
+<li>某些参数的扰动对模型结果产生的影响</li>
+<li>从工程研究的角度必须要做的工作</li>
+</ol>
+<h6 id="模型的模拟检验或仿真"><a href="#模型的模拟检验或仿真" class="headerlink" title="模型的模拟检验或仿真"></a>模型的模拟检验或仿真</h6><ol>
+<li>模拟与仿真的内涵</li>
+<li>数学建模工程问题是必须要做的工作</li>
+<li>利用已有的模型进行模拟检验</li>
+<li>利用已有的算法思想进行模拟或仿真</li>
+</ol>
+<h5 id="竞赛论文的写作方法"><a href="#竞赛论文的写作方法" class="headerlink" title="竞赛论文的写作方法"></a>竞赛论文的写作方法</h5><p><img src="C:%5CUsers%5CLenovo%5CDesktop%5Cimage-20200717101524263.png" alt="image-20200717101524263"></p>
+<h6 id="评价论文的主要标准"><a href="#评价论文的主要标准" class="headerlink" title="评价论文的主要标准"></a>评价论文的主要标准</h6><ol>
+<li>假设的合理性</li>
+<li>建模的创造性</li>
+<li>结果的正确性</li>
+<li>表述的清晰性</li>
+</ol>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E5%9F%B9%E8%AE%AD%E7%AC%94%E8%AE%B0/" rel="tag"># 培训笔记</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/07/17/%E5%8F%B3%E8%84%91%E7%AC%94%E8%AE%B0%EF%BC%9A%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%EF%BC%88%E4%B8%80%EF%BC%89/" rel="prev" title="右脑笔记：数据分析（一）">
+      <i class="fa fa-chevron-left"></i> 右脑笔记：数据分析（一）
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/07/18/%E5%B7%A6%E8%84%91%E7%AC%94%E8%AE%B0%EF%BC%9AMeaning-(Semantics)/" rel="next" title="左脑笔记：Meaning (Semantics)">
+      左脑笔记：Meaning (Semantics) <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-5"><a class="nav-link" href="#问题的识题与分析"><span class="nav-number">1.</span> <span class="nav-text">问题的识题与分析</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#数学模型的建立方法"><span class="nav-number">2.</span> <span class="nav-text">数学模型的建立方法</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#给出合理假设"><span class="nav-number">2.1.</span> <span class="nav-text">给出合理假设</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#模型的求解方法"><span class="nav-number">2.2.</span> <span class="nav-text">模型的求解方法</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#模型解的分析和检验方法"><span class="nav-number">2.3.</span> <span class="nav-text">模型解的分析和检验方法</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#模型解的分析和检验方法-1"><span class="nav-number">3.</span> <span class="nav-text">模型解的分析和检验方法</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#灵敏度分析："><span class="nav-number">3.1.</span> <span class="nav-text">灵敏度分析：</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#模型的模拟检验或仿真"><span class="nav-number">3.2.</span> <span class="nav-text">模型的模拟检验或仿真</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#竞赛论文的写作方法"><span class="nav-number">4.</span> <span class="nav-text">竞赛论文的写作方法</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#评价论文的主要标准"><span class="nav-number">4.1.</span> <span class="nav-text">评价论文的主要标准</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">曌天</p>
+  <div class="site-description" itemprop="description">I can read the ingredient on a gum wrapper and unlock the secrets of the universe.</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">23</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/Wangzhaotian725" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;Wangzhaotian725" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">曌天</span>
+</div>
+
+<div class="theme-info">
+  <div class="power-by"></div>
+  <span class="post-count">博客全站共11.8k字</span>
+</div>
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

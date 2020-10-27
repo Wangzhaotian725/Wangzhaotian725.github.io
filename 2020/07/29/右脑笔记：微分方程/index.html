@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+
+
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Mist","version":"7.7.2","exturl":false,"sidebar":{"position":"left","display":"hide","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+  <meta name="description" content="微分方程是含有函数及其导数的方程，是各种变化率之间的等式。 解决的主要问题： ​    预测对象特征的未来性态 ​    研究控制对象特征的手段 ​    分析对象特征的变化规律 ​    描述对象特征随时间（空间）的变化规律 常微分方程人口预测模型人口按几何级数增长 基本假设：人口相对增长率r是常数 设x(t)为t时刻的人口数，则x(t)满足下面常微分方程$$\frac{dx}{dt}&#x3D;rx,x">
+<meta property="og:type" content="article">
+<meta property="og:title" content="右脑笔记：微分方程">
+<meta property="og:url" content="http://yoursite.com/2020/07/29/%E5%8F%B3%E8%84%91%E7%AC%94%E8%AE%B0%EF%BC%9A%E5%BE%AE%E5%88%86%E6%96%B9%E7%A8%8B/index.html">
+<meta property="og:site_name" content="明天才有空">
+<meta property="og:description" content="微分方程是含有函数及其导数的方程，是各种变化率之间的等式。 解决的主要问题： ​    预测对象特征的未来性态 ​    研究控制对象特征的手段 ​    分析对象特征的变化规律 ​    描述对象特征随时间（空间）的变化规律 常微分方程人口预测模型人口按几何级数增长 基本假设：人口相对增长率r是常数 设x(t)为t时刻的人口数，则x(t)满足下面常微分方程$$\frac{dx}{dt}&#x3D;rx,x">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-07-29T08:42:12.910Z">
+<meta property="article:modified_time" content="2020-07-29T08:42:13.087Z">
+<meta property="article:author" content="曌天">
+<meta property="article:tag" content="培训笔记">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://yoursite.com/2020/07/29/%E5%8F%B3%E8%84%91%E7%AC%94%E8%AE%B0%EF%BC%9A%E5%BE%AE%E5%88%86%E6%96%B9%E7%A8%8B/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>右脑笔记：微分方程 | 明天才有空</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">明天才有空</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">武曌的博客</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-fw fa-user"></i>关于</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/07/29/%E5%8F%B3%E8%84%91%E7%AC%94%E8%AE%B0%EF%BC%9A%E5%BE%AE%E5%88%86%E6%96%B9%E7%A8%8B/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="曌天">
+      <meta itemprop="description" content="I can read the ingredient on a gum wrapper and unlock the secrets of the universe.">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="明天才有空">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          右脑笔记：微分方程
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-07-29 16:42:12 / 修改时间：16:42:13" itemprop="dateCreated datePublished" datetime="2020-07-29T16:42:12+08:00">2020-07-29</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%95%B0%E5%AD%A6%E5%BB%BA%E6%A8%A1/" itemprop="url" rel="index"><span itemprop="name">数学建模</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>微分方程是含有函数及其导数的方程，是各种<em>变化率</em>之间的等式。</p>
+<p>解决的主要问题：</p>
+<p>​    预测对象特征的未来性态</p>
+<p>​    研究控制对象特征的手段</p>
+<p>​    分析对象特征的变化规律</p>
+<p>​    描述对象特征随时间（空间）的变化规律</p>
+<h4 id="常微分方程"><a href="#常微分方程" class="headerlink" title="常微分方程"></a>常微分方程</h4><h5 id="人口预测模型"><a href="#人口预测模型" class="headerlink" title="人口预测模型"></a>人口预测模型</h5><p>人口按几何级数增长</p>
+<p>基本假设：人口相对增长率r是常数</p>
+<p>设x(t)为t时刻的人口数，则x(t)满足下面常微分方程<br>$$<br>\frac{dx}{dt}=rx,x(0)=x_0<br>$$<br>解为<br>$$<br>x(t)=x_0e^{rt}<br>$$<br>意味着随时间增加，人口按指数速度无限增长。</p>
+<p>通过已知数据拟合求取参数r。</p>
+<h6 id="阻滞增长模型"><a href="#阻滞增长模型" class="headerlink" title="阻滞增长模型"></a>阻滞增长模型</h6><p>人口增长到一定数量后，资源、环境等对人口增长起阻滞作用，阻滞作用随人口数量增大而变大，增长率r是x的减函数</p>
+<p>假设：</p>
+<p>$$<br>r(x)=r(1-\frac{x}{x_{max}})<br>$$<br>阻滞增长模型：<br>$$<br>\frac{dx}{dt}=r(1-\frac{x}{x_{max}})x<br>$$<br>$x(0)=x_0$时：<br>$$<br>x(t)=\frac{x_{max}}{1+(\frac{x_{max}}{x_0})e^{rt}}<br>$$<br>利用统计数据用最小二乘法作拟合。</p>
+<h5 id="捕食-食饵模型"><a href="#捕食-食饵模型" class="headerlink" title="捕食/食饵模型"></a>捕食/食饵模型</h5><p>假设：食饵数量x(t)，捕食者数量y(t)</p>
+<p>​            甲独立生存增长率r</p>
+<p>​            乙使甲增长率减小，减小量与y成正比，比例系数α称为捕食者掠取食饵的能力</p>
+<p>​            乙独立生存的死亡率d</p>
+<p>​            甲使乙的死亡率减小，减小量与x成正比，b为食饵供养捕食者能力<br>$$<br>\frac{dx}{dt}=(r-ay)x<br>$$</p>
+<p>$$<br>\frac{dy}{dt}=-(d-bx)y<br>$$</p>
+<p><em>没有解析解</em></p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E5%9F%B9%E8%AE%AD%E7%AC%94%E8%AE%B0/" rel="tag"># 培训笔记</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/07/27/%E5%8F%B3%E8%84%91%E7%AC%94%E8%AE%B0%EF%BC%9A%E6%8E%92%E9%98%9F%E8%AE%BA/" rel="prev" title="右脑笔记：排队论">
+      <i class="fa fa-chevron-left"></i> 右脑笔记：排队论
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/08/02/%E5%8F%B3%E8%84%91%E7%AC%94%E8%AE%B0%EF%BC%9ABP%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/" rel="next" title="右脑笔记：BP神经网络">
+      右脑笔记：BP神经网络 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#常微分方程"><span class="nav-number">1.</span> <span class="nav-text">常微分方程</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#人口预测模型"><span class="nav-number">1.1.</span> <span class="nav-text">人口预测模型</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#阻滞增长模型"><span class="nav-number">1.1.1.</span> <span class="nav-text">阻滞增长模型</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#捕食-食饵模型"><span class="nav-number">1.2.</span> <span class="nav-text">捕食&#x2F;食饵模型</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">曌天</p>
+  <div class="site-description" itemprop="description">I can read the ingredient on a gum wrapper and unlock the secrets of the universe.</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">23</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/Wangzhaotian725" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;Wangzhaotian725" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">曌天</span>
+</div>
+
+<div class="theme-info">
+  <div class="power-by"></div>
+  <span class="post-count">博客全站共11.8k字</span>
+</div>
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
